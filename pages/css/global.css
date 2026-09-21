@@ -58,6 +58,8 @@
   --border-light: #C1B6AD;
   --border-dark: #665F55;
 
+  --color-icon-social-hover:#403F3D;
+
   --font-semibold: 'Inter600', sans-serif;
   --font-regular: 'Inter400', sans-serif;
   --transition-standard: 0.5s ease-in-out;
@@ -98,7 +100,16 @@
   
   --c-social-border: #665F55;
   --c-social-hover-bg: #292826;
+
+   --color-icon-social-hover: #E1D4C9;
 }
+
+:root:has(#theme-toggle:checked) .logo-menu img,
+:root:has(#theme-toggle:checked) .enjoy-btn-img {
+    filter: invert(93%) sepia(12%) saturate(336%) hue-rotate(334deg) brightness(95%) contrast(93%);
+    transition: filter var(--transition-standard);
+}
+
 
 * {
   box-sizing: border-box;
@@ -109,6 +120,12 @@ html {
   box-sizing: border-box;
   background-color: var(--color-bg-page);
   transition: background-color var(--transition-standard);
+  opacity: 0;
+  transition: opacity 0.15s ease-in;
+}
+
+html.theme-loaded {
+  opacity: 1;
 }
 
 body {
@@ -340,6 +357,15 @@ h5,
   z-index: 50;
 }
 
+html.dark-theme .logo img {
+  content: url("../../assets/icons/logo-dark.svg");
+}
+
+.logo img {
+    transition: content var(--transition-standard);
+}
+
+
 .header-navigation {
   display: flex;
   align-items: center;
@@ -393,6 +419,8 @@ h5,
 
 .logo-menu img {
   margin-top: -5px;
+  filter: none;
+  transition: filter var(--transition-standard);
 }
 
 @media (hover: hover) {
@@ -512,7 +540,7 @@ h5,
     }
 
     .social-animation:hover .social-img {
-        background-color: #403F3D; 
+        background-color: var(--color-icon-social-hover); 
     }
 }
 
