@@ -11,14 +11,12 @@
 }
 
 :root {
-  /* Палитра из UI-Kit [Light] */
   --color-text-primary: #403F3D;
   --color-text-inverse: #E1D4C9;
   --color-text-accent: #B0907A;
   --color-bg-page: #E1D4C9;
   --color-bg-container: #665F55;
   
-  /* Цвета интерактивных элементов [Light] */
   --c-btn-primary-bg: #E1D4C9;
   --c-btn-secondary-bg: transparent;
   --c-btn-secondary-border: #665F55;
@@ -35,7 +33,6 @@
   --c-social-border: #C1B6AD;
   --c-social-hover-bg: #E1D4C9;
   
-  /* Константы для свитчера */
   --c-icon-beige: #E1D4C9;
   --c-icon-dark: #403F3D;
   --c-icon-white: #FFFFFF;
@@ -45,23 +42,19 @@
   --border-light: #C1B6AD;
   --border-dark: #665F55;
 
-  /* Шрифты и переходы */
   --font-semibold: 'Inter600', sans-serif;
   --font-regular: 'Inter400', sans-serif;
   --transition-standard: 0.5s ease-in-out;
   --transition-fast: 0.3s ease;
 }
 
-/* --- Тёмная тема (Инверсия UI-Kit при клике на чекбокс) --- */
 :root:has(#theme-toggle:checked) {
-  /* Палитра из UI-Kit [Dark] */
   --color-text-primary: #E1D4C9;
   --color-text-inverse: #E1D4C9;
   --color-text-accent: #B0907A;
   --color-bg-page: #292826;
   --color-bg-container: #403F3D;
-  
-  /* Цвета интерактивных элементов [Dark] */
+
   --c-btn-secondary-border: #C1B6AD;
   --c-btn-secondary-hover-bg: #292826;
   
@@ -173,31 +166,6 @@ h5,
     line-height: 140%;
 }
 
-/* h2, h3, h4, .header-navigation {
-  font-family: var(--font-semibold);
-  margin: 0;
-  color: var(--color-text-primary);
-  transition: color var(--transition-standard);
-}
-
-h2 { font-size: 60px; line-height: 125%; }
-h3 { font-size: 24px; line-height: 125%; }
-h4, .header-navigation, .header-controls { font-size: 16px; line-height: 140%; }
-
-h5 {
-  font-family: var(--font-regular);
-  font-size: 16px;
-  line-height: 150%;
-  font-weight: 400;
-  margin: 0;
-  color: var(--color-text-primary);
-  transition: color var(--transition-standard);
-}
-
-.accent {
-  font-style: italic;
-  color: var(--color-text-accent);
-} */
 
 .body-wrapper {
   margin: 20px 40px;
@@ -339,6 +307,7 @@ h5 {
 .header a {
   text-decoration: none;
   color: var(--color-text-primary);
+  z-index: 50;
 }
 
 .header-navigation {
@@ -346,7 +315,7 @@ h5 {
   align-items: center;
   list-style: none;
   color: var(--color-text-primary);
-  gap: 40px;
+  gap: clamp(16px, 2vw, 60px);
 }
 
 .header-navigation li {
@@ -363,6 +332,7 @@ h5 {
 .header-controls {
     display: flex;
     gap: 20px;
+    align-items: center;
 }
 
 .header-navigation a::after,
@@ -379,6 +349,10 @@ h5 {
   transition: width 0.8s ease, left 0.8s ease;
 }
 
+.header-controls a::after {
+  top: 45px;
+}
+
 .logo-menu {
   position: relative;
   display: flex;
@@ -387,9 +361,8 @@ h5 {
   cursor: pointer;
 }
 
-.logo-menu h4,
 .logo-menu img {
-  margin-top: 0;
+  margin-top: -5px;
 }
 
 @media (hover: hover) {
@@ -431,6 +404,7 @@ h5 {
     border-radius: 40px;
     padding: 100px;
     gap: 40px;
+    flex-wrap: wrap;
 }
 
 .footer-one-column {
@@ -570,7 +544,7 @@ h5 {
     content: "";
     position: absolute;
     left: 50%;
-    top: 22px;
+    top: 27px;
     display: block;
     height: 1px;
     width: 0;
@@ -637,12 +611,11 @@ h5 {
     .header-navigation-wrapper {
         display: block;
         position: fixed;
-        top: 80px;
+        top: 0;
         right: -100%;
         width: 100%;
         background-color: var(--color-bg-page);
         transition: right 0.8s ease;
-        margin-top: 10px;
         height: 100vh;
         z-index: 10;
         margin-left: 0;
@@ -658,19 +631,35 @@ h5 {
         font-weight: 600;
         line-height: 125%;    
         flex-direction: column;
-        margin-top: 10%;
+        margin-top: 5em;
         align-items: center;
         gap: 63px;    
     }
 
+    .theme-switch {
+        z-index: 50;
+    }
+
+    .switch-track {
+      position: absolute;
+      top: 5px;
+    }
+
     .logo-menu {
+        display: none;
         font-family: var(--font-semibold);
         font-size: 32px;
         font-weight: 600;
         line-height: 125%;
         justify-content: center;
-        margin-top: 16%;
         transform: scale(2);
+        z-index: 50;
+    }
+
+    .logo-menu.active {
+      display: flex;
+      position: absolute;
+      top: 17em;
     }
 
     .burger-menu {
@@ -683,6 +672,7 @@ h5 {
         border: 1px solid var(--color-text-primary);
         margin-top: 8px;
         position: relative;
+        z-index: 50;
     }
 
     .burger-icon {

@@ -5,12 +5,14 @@ const headerNavigation = document.querySelector('.header-navigation');
 const oneLine = document.querySelector('.one-line');
 const twoLine = document.querySelector('.two-line');
 const headerNavListLi = document.querySelectorAll('.header-nav-list-li');
+const logoMenu = document.querySelector('.logo-menu');
 const toggleMenu = () => {
     document.body.classList.toggle('lock');
     headerNavigation.classList.toggle('active');
     oneLine.classList.toggle('active');
     twoLine.classList.toggle('active');
     headerNavigationWrapper.classList.toggle('active');
+    logoMenu.classList.toggle('active');
 };
 
 burger.addEventListener('click', e => {

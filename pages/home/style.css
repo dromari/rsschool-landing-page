@@ -74,8 +74,12 @@
     opacity: 0;
     transform: translateX(10px);
     transition: opacity var(--transition-fast), transform var(--transition-fast);
+     margin-top: -5px;
 }
 
+.enjoy-btn-text {
+    margin-left: 25px;
+}
 
 .enjoy-overlay a {
     text-decoration: none;
@@ -266,16 +270,14 @@
     color: var(--color-text-primary);
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центрируем контент строго по вертикали во флекс-контейнере */
+    align-items: center; 
 }
 
 .description-coffee-cost {
     font-family: var(--font-semibold);
-    font-size: 24px;
-    /* ИСПРАВЛЕНО: Меняем line-height на 140%, чтобы у шрифта снизу появилось свободное пространство */
+    font-size: 24px;   
     line-height: 140%; 
-    color: var(--color-text-primary);
-    /* ИСПРАВЛЕНО: Обнуляем высоту, чтобы блок растягивался по контенту естественным образом */
+    color: var(--color-text-primary);   
     height: auto; 
     display: inline-block;
 }
@@ -288,10 +290,6 @@
     margin-top: 100px;
 }
 
-.about-text {
-    margin-left: 40px;
-}
-
 .about-text h2 {
     color: var(--color-text-primary);
 }
@@ -300,7 +298,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    flex-wrap: nowrap; 
+    flex-wrap: wrap; 
     gap: 40px;
     margin-top: 40px;
 }
@@ -358,7 +356,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     margin-top: 100px;
 }
 
