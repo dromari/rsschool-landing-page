@@ -1,400 +1,17 @@
-:root {
-  /* Палитра из UI-Kit [Light] */
-  --color-text-primary: #403F3D;
-  --color-text-inverse: #E1D4C9;
-  --color-text-accent: #B0907A;
-  --color-bg-page: #E1D4C9;
-  --color-bg-container: #665F55;
-  
-  /* Цвета интерактивных элементов [Light] */
-  --c-btn-primary-bg: #E1D4C9;
-  --c-btn-secondary-bg: transparent;
-  --c-btn-secondary-border: #665F55;
-  --c-btn-secondary-hover-bg: #665F55;
-  
-  --c-btn-app-bg: transparent;
-  --c-btn-app-border: #665F55;
-  --c-btn-app-hover-bg: #665F55;
-  
-  --c-slider-border: #665F55;
-  --c-slider-hover-bg: #665F55;
-  --c-slider-hover-border: #665F55;
-  
-  --c-social-border: #C1B6AD;
-  --c-social-hover-bg: #E1D4C9;
-  
-  /* Константы для свитчера */
-  --c-icon-beige: #E1D4C9;
-  --c-icon-dark: #403F3D;
-  --c-icon-white: #FFFFFF;
-  --c-circle-accent: #B0907A;
-  --c-circle-hover-light: #665F55;
-  --c-circle-hover-dark: #403F3D;
-  --border-light: #C1B6AD;
-  --border-dark: #665F55;
-
-  /* Шрифты и переходы */
-  --font-semibold: 'Inter600', sans-serif;
-  --font-regular: 'Inter400', sans-serif;
-  --transition-standard: 0.5s ease-in-out;
-  --transition-fast: 0.3s ease;
-}
-
-/* --- Тёмная тема (Инверсия UI-Kit при клике на чекбокс) --- */
-:root:has(#theme-toggle:checked) {
-  /* Палитра из UI-Kit [Dark] */
-  --color-text-primary: #E1D4C9;
-  --color-text-inverse: #E1D4C9;
-  --color-text-accent: #B0907A;
-  --color-bg-page: #292826;
-  --color-bg-container: #403F3D;
-  
-  /* Цвета интерактивных элементов [Dark] */
-  --c-btn-secondary-border: #C1B6AD;
-  --c-btn-secondary-hover-bg: #292826;
-  
-  --c-btn-app-bg: transparent;
-  --c-btn-app-border: #C1B6AD;
-  --c-btn-app-hover-bg: #403F3D;
-  
-  --c-slider-border: #C1B6AD;
-  --c-slider-hover-bg: #403F3D;
-  --c-slider-hover-border: #403F3D;
-  
-  --c-social-border: #665F55;
-  --c-social-hover-bg: #292826;
-}
-
-/* ==========================================================================
-   2. ГЛОБАЛЬНЫЕ СБРОСЫ И СВЯЗЫВАНИЕ ПЕРЕМЕННЫХ
-   ========================================================================== */
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  box-sizing: border-box;
-  background-color: var(--color-bg-page);
-  transition: background-color var(--transition-standard);
-}
-
-body {
-  margin: 0 auto;
-  max-width: 1440px;
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-page);
-  transition: background-color var(--transition-standard), color var(--transition-standard);
-}
-
-ul {
-  padding: 0;
-}
-
-p {
-  margin: 0;
-}
-
-a {
-  transition: color var(--transition-standard);
-}
-
-a:hover {
-  cursor: pointer;
-}
-
-/* Типографика с поддержкой тем */
-h1 {
-  font-family: var(--font-semibold);
-  font-size: 72px;
-  line-height: 105%;
-  margin: 0;
-  color: var(--color-text-primary); /* На баннере текст ВСЕГДА светлый по макету Фигмы */
-}
-
-h2, h3, h4, .header-navigation {
-  font-family: var(--font-semibold);
-  margin: 0;
-  color: var(--color-text-primary);
-  transition: color var(--transition-standard);
-}
-
-h2 { font-size: 60px; line-height: 125%; }
-h3 { font-size: 24px; line-height: 125%; }
-h4, .header-navigation { font-size: 16px; line-height: 140%; }
-
-h5 {
-  font-family: var(--font-regular);
-  font-size: 16px;
-  line-height: 150%;
-  font-weight: 400;
-  margin: 0;
-  color: var(--color-text-primary);
-  transition: color var(--transition-standard);
-}
-
-.accent {
-  font-style: italic;
-  color: var(--color-text-accent);
-}
-
-.body-wrapper {
-  margin: 20px 40px;
-}
-
-.theme-switch {
-  position: relative;
-  display: inline-block;
-  width: 92px;  
-  height: 48px; 
-  cursor: pointer;
-  background: transparent;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Скрываем чекбокс, но оставляем доступным для клавиатуры */
-.theme-switch-input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* Трек свитчера */
-.switch-track {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  border-radius: 48px;
-  padding: 4px; 
-  box-sizing: border-box;
-  background: transparent;
-  border: 1px solid var(--border-light);
-  transition: border-color 0.3s ease;
-  gap: 5px;
-}
-
-/* Две интерактивные половины */
-.icon-wrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-/* Круглая подложка */
-.icon-wrapper::before {
-  content: '';
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, background-color 0.3s ease;
-  transform: scale(0.8);
-  opacity: 0; 
-  z-index: 1;
-}
-
-/* Иконка с маской */
-.icon-img {
-  width: 18px;  
-  height: 18px;
-  transition: background-color 0.3s ease;
-  z-index: 2;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-}
-
-.icon-sun .icon-img {
-  -webkit-mask-image: url('../../assets/icons/sun.svg');
-  mask-image: url('../../assets/icons/sun.svg');
-}
-
-.icon-moon .icon-img {
-  -webkit-mask-image: url('../../assets/icons/moon.svg');
-  mask-image: url('../../assets/icons/moon.svg');
-}
-
-/* =======================================================
-   СОСТОЯНИЕ 1: LIGHT THEME (Чекбокс НЕ активен)
-   ======================================================= */
-
-/* Солнце активно по умолчанию */
-.theme-switch-input:not(:checked) ~ .switch-track .icon-sun::before {
-  background-color: var(--c-circle-accent);
-  opacity: 1;
-  transform: scale(1);
-}
-.theme-switch-input:not(:checked) ~ .switch-track .icon-sun .icon-img {
-  background-color: var(--c-icon-beige);
-}
-
-/* Луна неактивна */
-.theme-switch-input:not(:checked) ~ .switch-track .icon-moon::before { opacity: 0; }
-.theme-switch-input:not(:checked) ~ .switch-track .icon-moon .icon-img {
-  background-color: var(--c-icon-dark);
-}
-
-/* Ховер на Луну в светлой теме */
-.theme-switch:hover .theme-switch-input:not(:checked) ~ .switch-track .icon-moon::before {
-  background-color: var(--c-circle-hover-light);
-  opacity: 1;
-  transform: scale(1);
-}
-.theme-switch:hover .theme-switch-input:not(:checked) ~ .switch-track .icon-moon .icon-img {
-  background-color: var(--c-icon-beige);
-}
-
-
-/* =======================================================
-   СОСТОЯНИЕ 2: DARK THEME (Чекбокс АКТИВЕН)
-   ======================================================= */
-.theme-switch-input:checked ~ .switch-track {
-  border-color: var(--border-dark);
-}
-
-/* Солнце неактивно */
-.theme-switch-input:checked ~ .switch-track .icon-sun::before { opacity: 0; transform: scale(0.8); }
-.theme-switch-input:checked ~ .switch-track .icon-sun .icon-img {
-  background-color: var(--c-icon-beige);
-}
-
-/* Луна активна */
-.theme-switch-input:checked ~ .switch-track .icon-moon::before {
-  background-color: var(--c-circle-accent);
-  opacity: 1;
-  transform: scale(1);
-}
-.theme-switch-input:checked ~ .switch-track .icon-moon .icon-img {
-  background-color: var(--c-icon-beige);
-}
-
-/* Ховер на Солнце в темной теме */
-.theme-switch:hover .theme-switch-input:checked ~ .switch-track .icon-sun::before {
-  background-color: var(--c-circle-hover-dark);
-  opacity: 1;
-  transform: scale(1);
-}
-.theme-switch:hover .theme-switch-input:checked ~ .switch-track .icon-sun .icon-img {
-  background-color: var(--c-icon-white);
-}
-/* ==========================================================================
-   4. ШАПКА САЙТА (HEADER) И НАВИГАЦИЯ — ИСПРАВЛЕННЫЙ ФЛЭКС СЕТКИ
-   ========================================================================== */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Выравнивание элементов строго по центру */
-}
-
-.header a {
-  text-decoration: none;
-  color: var(--color-text-primary);
-}
-
-.header-navigation {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  color: var(--color-text-primary);
-  gap: 40px;
-}
-
-.header-navigation li {
-  margin-top: 0;
-}
-
-.header-navigation a {
-  text-decoration: none;
-  color: var(--color-text-primary);
-  position: relative;
-  display: inline-block;
-}
-
-.header-navigation a::after,
-.logo-menu::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 25px;
-  display: block;
-  height: 2px;
-  width: 0;
-  background: var(--color-text-primary);
-  border-radius: 1px;
-  transition: width 0.8s ease, left 0.8s ease;
-}
-
-
-.logo-menu {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-
-.logo-menu::after {
-  margin-top: -8px;
-}
-
-.logo-menu h4,
-.logo-menu img {
-  margin-top: 0;
-}
-
-/* --- Ховер-эффекты для десктопов --- */
-@media (hover: hover) {
-  .header-navigation a:hover::after,
-  .logo-menu:hover::after {
-    left: 0;
-    width: 100%;
-    animation: a-nav 3s forwards;
-  }
-}
-
-/* --- Ключевые кадры анимации --- */
-@keyframes a-nav {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.header-controls {
-    display: flex;
-    gap: 20px;
-}
-
-
-.burger-menu {
-    display: none;
-}
-
 .main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-/* --- Секция Enjoy (Баннер) --- */
+/*-------enjoy---------*/
 .enjoy {
     position: relative;
     margin-top: 16px;
     overflow: hidden;
     border-radius: 40px;
     padding: 7.35% 0 7.35% 7.35%;
-    background-color: #211F1D; /* Темная подложка на случай, если видео долго грузится */
+    background-color: #211F1D; 
 }
 
 #video {
@@ -403,15 +20,15 @@ h5 {
     left: 50%;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Видео идеально заполняет весь баннер без искажений */
+    object-fit: cover;
     transform: translate(-50%, -50%);
-    z-index: 1; /* Поднимаем видео над фоном секции */
+    z-index: 1; 
 }
 
 .enjoy-overlay {
     position: relative;
     width: 530px;
-    z-index: 2; /* Контент баннера должен быть строго ПОВЕРХ видео */
+    z-index: 2; 
 }
 
 .enjoy-text {
@@ -420,16 +37,14 @@ h5 {
     gap: 21px;
 }
 
-/* Фиксация: текст на баннере с видео ВСЕГДА светлый */
 .enjoy-text h1,
 .enjoy-overlay h5 {
-    color: #E1D4C9 !important;
+    color: #E1D4C9;
     margin: 0;
 }
 
-/* Описание на баннере тоже принудительно делаем светлым */
 .enjoy-text p {
-    color: #E1D4C9 !important;
+    color: #E1D4C9;
 }
 
 .enjoy-btn {
@@ -446,7 +61,7 @@ h5 {
     font-family: var(--font-semibold);
     font-size: 16px;
     cursor: pointer;
-    color: var(--color-text-primary); /* Текст ВСЕГДА темный на светлой кнопке */
+    color: var(--color-text-primary); 
     z-index: 2;
     position: relative;
     overflow: hidden;
@@ -469,7 +84,6 @@ h5 {
 
 @media (hover:hover) {
     .enjoy-btn:hover .enjoy-btn-text {
-        /* Эффект легкого смещения текста при ховере */
         transform: translateX(-4px);
         transition: transform 0.3s ease;
     }
@@ -479,8 +93,7 @@ h5 {
     }
 }
 
-
-/* --- Секция Слайдера (Favourite Coffee) --- */
+/*-----------favourite coffee-----------*/
 .favourite-coffee {
     margin-top: 92px;
     position: relative;
@@ -533,7 +146,6 @@ h5 {
 @keyframes left { from { left: 0; } to { left: -100%; } }
 @keyframes right { from { left: 100%; } to { left: 0; } }
 
-/* Индикаторы прогресса слайдера */
 .line-container {
     display: flex;
     cursor: pointer;
@@ -545,12 +157,12 @@ h5 {
     max-width: 100%;
    }
 
-/* Оболочка палочки: использует вашу переменную --border-light из макета */
+
 .line-img-container {
     width: 40px;
     height: 4px;
     border-radius: 100px;
-    background-color: var(--border-light); /* Неактивная серая линия по умолчанию */
+    background-color: var(--border-light); 
     margin: 0;
     overflow: hidden;
     position: relative;
@@ -558,16 +170,14 @@ h5 {
     transition: background-color var(--transition-fast);
 }
 
-/* Внутренняя линия, которая будет заполняться при анимации */
 .line-img {
     display: block;
     width: 0; 
     height: 4px;
     border-radius: 20px;
-    background-color: var(--c-slider-border); /* ИСПРАВЛЕНО: Берем точную переменную цвета заполнения */
+    background-color: var(--c-slider-border); 
 }
 
-/* Анимация плавного заполнения прогресс-бара за 5 секунд */
 @keyframes move {
     from {
         width: 0;
@@ -577,39 +187,27 @@ h5 {
     }
 }
 
-/* Класс активности */
-.line-img.active-line {
-    width: 100%; 
-    background-color: var(--c-slider-border); 
-    animation: move 5s linear forwards; 
-}
-/* ==========================================================================
-   ЛОГИКА ПАУЗЫ АНИМАЦИИ ПРИ НАВЕДЕНИИ КУРСОРA (HOVER PAUSE)
-   ========================================================================== */
-/* Класс активности */
 .line-img.active-line {
     width: 100%; 
     background-color: var(--c-slider-border); 
     animation: move 5s linear forwards; 
 }
 
-/* ==========================================================================
-   ЛОГИКА ДЛЯ ХОВЕРА И ПАУЗЫ (HOVER & PAUSE FIX)
-   ========================================================================== */
-@media (hover: hover) {
-    /* 1. ПАУЗА: При наведении на слайдер бегущая линия замирает ровно там, где была */
+.line-img.active-line {
+    width: 100%; 
+    background-color: var(--c-slider-border); 
+    animation: move 5s linear forwards; 
+}
+
+@media (hover: hover) {  
     .favorite-coffee-slider:hover .line-img.active-line {
         animation-play-state: paused;
     }
-
-    /* 2. ХОВЕР НА НЕАКТИВНЫЕ: Подсвечиваем только те палочки, которые сейчас НЕ активны */
+ 
     .line-img-container:not(:has(.active-line)):hover {
         background-color: var(--c-slider-hover-bg);
     }
 }
-
-
-
 
 .arrows {
     width: 99.5%;
@@ -662,10 +260,29 @@ h5 {
     color: var(--color-text-primary);
 }
 
-.description-coffee-about { margin-top: 15px; }
-.description-coffee-cost { margin-top: 17px; }
+.description-coffee {
+    text-align: center;
+    margin-top: 17px;
+    color: var(--color-text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрируем контент строго по вертикали во флекс-контейнере */
+}
 
-/* --- Секция Галереи (About) --- */
+.description-coffee-cost {
+    font-family: var(--font-semibold);
+    font-size: 24px;
+    /* ИСПРАВЛЕНО: Меняем line-height на 140%, чтобы у шрифта снизу появилось свободное пространство */
+    line-height: 140%; 
+    color: var(--color-text-primary);
+    /* ИСПРАВЛЕНО: Обнуляем высоту, чтобы блок растягивался по контенту естественным образом */
+    height: auto; 
+    display: inline-block;
+}
+ 
+.description-coffee-about { margin: 15px 0; } 
+
+
 /*---------------about----------------*/
 .about {
     margin-top: 100px;
@@ -683,7 +300,7 @@ h5 {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    flex-wrap: nowrap; /* Принудительно выстраивает в два столбца на десктопе */
+    flex-wrap: nowrap; 
     gap: 40px;
     margin-top: 40px;
 }
@@ -693,7 +310,7 @@ h5 {
      display: flex;
     flex-direction: column;
     gap: 40px;
-    flex: 1; /* Равномерно распределяет ширину колонок */
+    flex: 1; 
     max-width: 660px;
 }
 
@@ -702,7 +319,7 @@ h5 {
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 100%; /* Занимает всю ширину колонки */
+    width: 100%; 
     height: 590px;
     overflow: hidden;
     border-radius: 20px;
@@ -719,7 +336,7 @@ h5 {
     transform: scale(1.23);
     height: 100%;
     width: 100%;
-    object-fit: cover; /* Чтобы картинка не сжималась при изменении пропорций */
+    object-fit: cover;
 }
 
 .about-mini-img {
@@ -736,19 +353,17 @@ h5 {
     }
 }
 
-
-/* --- Секция Приложения (MobileApp) --- */
 /*-------------mobileApp-----------*/
 .mobileApp {
     display: flex;
-    justify-content: space-between; /* Распределяем текст и телефоны по краям */
+    justify-content: space-between;
     align-items: flex-start;
     flex-wrap: nowrap;
     margin-top: 100px;
 }
 
 .app-text {
-    margin-top: 68px; /* Выравниваем по высоте с телефонами */
+    margin-top: 68px;
     width: 625px;
     display: flex;
     flex-direction: column;
@@ -778,7 +393,6 @@ h5 {
     margin-top: 25px;
 }
 
-/* Овальные кнопки по ТЗ и UI-Kit */
 .appStore-btn,
 .googlePlay-btn {
     display: flex;
@@ -786,7 +400,7 @@ h5 {
     justify-content: flex-start;
     width: 200px;
     height: 64px;
-    border-radius: 100px; /* Идеальный овал капсулы */
+    border-radius: 100px; 
     background-color: var(--c-btn-app-bg);
     border: 1px solid var(--c-btn-app-border);
     cursor: pointer;
@@ -794,7 +408,7 @@ h5 {
     padding: 0;
     transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
-/* Иконки приложений видны ИЗНАЧАЛЬНО */
+
 .img-appStore-btn,
 .img-googlePlay-btn {
     width: 36px;
@@ -841,30 +455,25 @@ h5 {
     margin: 0;
 }
 
-/* Эффект ховера */
-/* Эффект ховера строго по макету Фигмы */
 @media (hover:hover) {
-    /* Красим обертку кнопки при наведении */
     .appStore-btn:hover,
     .googlePlay-btn:hover {
-        background-color: var(--c-btn-app-hover-bg) !important;
-        border-color: var(--c-btn-app-hover-bg) !important;
+        background-color: var(--c-btn-app-hover-bg);
+        border-color: var(--c-btn-app-hover-bg);
     }
     
-    /* ИСПРАВЛЕНО: Явно перекрашиваем все внутренние тексты, параграфы и ссылки при ховере */
     .appStore-btn:hover p,
     .googlePlay-btn:hover p,
     .appStore-btn:hover .text-under-name-app,
     .googlePlay-btn:hover .text-under-name-app,
     .appStore-btn:hover .name-app,
     .googlePlay-btn:hover .name-app {
-        color: var(--color-text-inverse) !important;
+        color: var(--color-text-inverse);
     }
-    
-    /* Красим иконку-маску при наведении */
+
     .appStore-btn:hover .img-appStore-btn,
     .googlePlay-btn:hover .img-googlePlay-btn {
-        background-color: var(--color-text-inverse) !important; 
+        background-color: var(--color-text-inverse); 
     }
 }
 
@@ -872,322 +481,7 @@ h5 {
 .text-under-name-app { font-family: var(--font-regular); font-weight: 400; font-size: 10px; line-height: 140%; }
 .name-app { font-family: var(--font-semibold); font-size: 16px; line-height: 150%; }
 
-/* --- Секция Подвала (Footer) --- */
-/*----------footer----------*/
-/*----------footer----------*/
-/* ==========================================================================
-   СЕКЦИЯ ПОДВАЛА (FOOTER)
-   ========================================================================== */
-.footer {
-    margin: 100px 0 0;
-}
-
-.footer-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    background-color: var(--color-bg-container);
-    border-radius: 40px;
-    padding: 100px;
-    gap: 40px;
-}
-
-/* Левая колонка (Заголовок и соцсети) */
-.footer-one-column {
-    width: 530px;
-    margin-left: 0;
-    padding-top: 0;
-}
-
-.footer-wrapper h2 {
-    color: var(--color-text-inverse) !important;
-}
-
-.social {
-    display: flex;
-    align-items: center;
-    margin-top: 40px;
-    padding-bottom: 0;
-    gap: 12px;
-}
-
-/* Круглая кнопка соцсети с правильной переменной рамки */
-.social-animation {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    cursor: pointer;
-    background-color: transparent;
-    /* ИСВРАВЛЕНО: Берем точную переменную рамки из UI-Kit */
-    border: 1px solid var(--c-social-border); 
-    transition: background-color var(--transition-fast), border-color var(--transition-fast);
-}
-
-.social-animation a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-}
-
-/* Базовые свойства SVG-масок для иконок */
-.social-img {
-    width: 24px;
-    height: 24px;
-    /* ИСВРАВЛЕНО: Изначальный цвет иконки привязан к общему инверсному тексту (кремовый) */
-    background-color: var(--color-text-inverse);
-    transition: background-color var(--transition-fast);
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-}
-
-/* Пути к SVG-контурам */
-.twitter-img {
-    -webkit-mask-image: url('../../assets/icons/twitter.svg');
-    mask-image: url('../../assets/icons/twitter.svg');
-}
-
-.instagram-img {
-    -webkit-mask-image: url('../../assets/icons/instagram.svg');
-    mask-image: url('../../assets/icons/instagram.svg');
-}
-
-.facebook-img {
-    -webkit-mask-image: url('../../assets/icons/facebook.svg');
-    mask-image: url('../../assets/icons/facebook.svg');
-}
-
-/* Интерактивный ховер с использованием ваших точных переменных */
-@media (hover: hover) {
-    .social-animation:hover {
-        /* ИСПРАВЛЕНО: Круг и его рамка перекрашиваются строго по UI-Kit переменной ховера */
-        background-color: var(--c-social-hover-bg);
-        border-color: var(--c-social-hover-bg);
-    }
-
-    .social-animation:hover .social-img {
-        /* ИСПРАВЛЕНО: Иконка меняет цвет на темно-серый, считывая текущую тему */
-        background-color: #403F3D; 
-    }
-}
-
-
-/* Правая колонка (Контакты и время работы) */
-.footer-two-column {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 0;
-    margin-left: 0;
-    width: 482px;
-}
-
-.footer-two-column h3 {
-    font-family: var(--font-semibold);
-    font-size: 24px;
-    line-height: 125%;
-    margin-bottom: 40px;
-    color: var(--color-text-inverse) !important;
-}
-
-.adress,
-.phone,
-.times {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-.times {
-    margin-bottom: 0;
-}
-
-.phone,
-.times {
-    cursor: pointer;
-}
-
-.adress a,
-.phone a,
-.times p {
-    font-family: var(--font-semibold);
-    font-size: 16px;
-    line-height: 140%;
-    color: var(--color-text-inverse) !important;
-    text-decoration: none;
-    margin: 0;
-}
-
-.adress a,
-.phone a {
-    position: relative;
-    display: inline-block;
-}
-
-/* Тонкая линия подчеркивания при ховере на ссылки контактов */
-.adress a::after,
-.phone a::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 22px;
-    display: block;
-    height: 1px;
-    width: 0;
-    background: var(--color-text-inverse);
-    transition: width 0.3s ease, left 0.3s ease;
-}
-
-@media (hover: hover) {
-    .adress a:hover::after,
-    .phone a:hover::after {
-        width: 100%;
-        left: 0;
-    }
-}
-
-.adress img,
-.phone img,
-.times img {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-}
-
-
-
-/* ==========================================================================
-   6. МЕДИА-ЗАПРОСЫ (АДАПТИВНОСТЬ)
-   ========================================================================== */
-
-/* --- Макс. ширина 1060px (Планшеты горизонтальные) --- */
-@media screen and (max-width: 1060px) {
-    .footer {
-        margin-top: 13%;
-    }
-
-    .footer-one-column {
-        margin-left: 60px;
-    }
-
-    .footer-two-column {
-        margin-top: 0;
-        margin-left: 60px;
-        padding-bottom: 103px;
-    }
-}
-
-/* --- Макс. ширина 768px (Планшеты вертикальные) --- */
 @media screen and (max-width: 768px) {
-    body {
-        max-width: 768px;
-    }
-
-    body.lock {
-        overflow-y: hidden;
-    }
-
-    .body-wrapper {
-        position: relative;
-    }
-
-    /* Навигация (Мобильное меню) */
-    .header-navigation-wrapper {
-        display: block;
-        position: fixed;
-        top: 80px;
-        right: -100%;
-        width: 100%;
-        background-color: var(--color-bg-page);
-        transition: right 0.8s ease;
-        margin-top: 10px;
-        height: 100vh;
-        z-index: 10;
-        margin-left: 0;
-    }
-
-    .header-navigation-wrapper.active {
-        right: 0;
-    }
-
-    .header-navigation {
-        flex-direction: column;
-        margin-top: 10%;
-        align-items: center;
-        gap: 63px;
-        font-size: 32px;
-    }
-
-    .logo-menu {
-        justify-content: center;
-        margin-top: 16%;
-        transform: scale(2);
-    }
-
-    /* Бургер-иконка */
-    .burger-menu {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        border-radius: 100%;
-        border: 1px solid var(--color-text-primary);
-        margin-top: 8px;
-        position: relative;
-    }
-
-    .burger-icon {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        z-index: 5;
-        position: relative;
-        width: 16px;
-        height: 10px;
-        cursor: pointer;
-        transition: transform 0.8s ease;
-    }
-
-    .one-line,
-    .two-line {
-        position: absolute;
-        width: 16px;
-        height: 1px;
-        transition: all 0.8s ease 0s;
-        background-color: var(--color-text-primary);
-    }
-
-    .one-line {
-        top: 0;
-    }
-
-    .two-line {
-        top: 10px;
-    }
-
-    .one-line.active {
-        transform: rotate(-45deg);
-        top: 4px;
-    }
-
-    .two-line.active {
-        transform: rotate(45deg);
-        top: 4px;
-    }
-
-    /* Секции контента */
     .enjoy {
         padding: 14.35% 0 15.35% 8.35%;
     }
@@ -1240,29 +534,10 @@ h5 {
     .app-images {
         margin-top: 98px;
         margin-left: 0;
-    }
-
-    .adress a:hover::after,
-    .phone a:hover::after {
-        animation: none;
-    }
+    }   
 }
 
-/* --- Макс. ширина 720px (Мобильные устройства) --- */
-@media screen and (max-width: 720px) {
-    h1 {
-        font-size: 42px;
-        line-height: 115%;
-    }
-
-    h2 {
-        font-size: 32px;
-    }
-
-    .body-wrapper {
-        margin: 20px 16px;
-    }
-
+@media screen and (max-width: 720px) { 
     .enjoy {
         height: 552px;
         padding: 17.35% 0 15.35% 4.35%;
@@ -1323,27 +598,8 @@ h5 {
     .buttons-app {
         flex-direction: column;
     }
-
-    .footer {
-        margin: 96px 16px 0 16px;
-    }
-
-    .footer-one-column {
-        margin-left: 16px;
-        padding-top: 61px;
-    }
-
-    .footer-two-column {
-        margin-left: 16px;
-        padding-bottom: 63px;
-    }
-
-    .social {
-        padding-bottom: 38px;
-    }
 }
 
-/* --- Макс. ширина 380px (Узкие смартфоны) --- */
 @media screen and (max-width: 380px) {
     .line-container {
         margin-top: -67px;
