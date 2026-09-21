@@ -1,38 +1,3 @@
-/*---------burger----------*/
-const burger = document.querySelector('.burger-menu');
-const headerNavigationWrapper = document.querySelector('.header-navigation-wrapper');
-const headerNavigation = document.querySelector('.header-navigation');
-const oneLine = document.querySelector('.one-line');
-const twoLine = document.querySelector('.two-line');
-const headerNavListLi = document.querySelectorAll('.header-nav-list-li');
-const logoMenu = document.querySelector('.logo-menu');
-const toggleMenu = () => {
-    document.body.classList.toggle('lock');
-    headerNavigation.classList.toggle('active');
-    oneLine.classList.toggle('active');
-    twoLine.classList.toggle('active');
-    headerNavigationWrapper.classList.toggle('active');
-    logoMenu.classList.toggle('active');
-};
-
-burger.addEventListener('click', e => {
-    toggleMenu();
-});
-
-headerNavListLi.forEach(element => {
-    element.addEventListener('click', (e) => {
-        toggleMenu();
-        e.preventDefault();
-        setTimeout(()=>{
-            window.location = element.getAttribute('href');
-        }, 1000);
-    })
-})
-
-/*setTimeout(function () {
-    console.log('text');
-}, 1000);*/
-
 /*---------slider---------*/
 
 const sliderRow = document.querySelector('.slider-row');
@@ -214,33 +179,4 @@ const swipe = (elem) => {
 
 let elem = sliderRow;
 swipe(elem);
-
-document.addEventListener('DOMContentLoaded', () => {
-  const themeToggle = document.getElementById('theme-toggle');
-  const savedTheme = localStorage.getItem('theme');
-  
-  // Инициализация при загрузке
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark-theme');
-    themeToggle.checked = true;
-  }
-
-  // Переключение по клику
-  themeToggle.addEventListener('change', () => {
-    if (themeToggle.checked) {
-      document.body.classList.add('dark-theme');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.body.classList.remove('dark-theme');
-      localStorage.setItem('theme', 'light');
-    }
-  });
-});
-
-
-
-
-
-
-
 

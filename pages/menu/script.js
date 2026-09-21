@@ -67,7 +67,7 @@ function createCard(jsonCard) {
     discriptionPosition.appendChild(moreDetailPosition);
     discriptionPosition.appendChild(costPosition);
 
-    menuCard.addEventListener('click', showModal);
+    // menuCard.addEventListener('click', showModal);
     return menuCard;
 }
 

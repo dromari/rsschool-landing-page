@@ -512,6 +512,10 @@
         margin: 15px 4%;
     }
 
+    .about-gallery {
+        flex-direction: column;
+    }
+
     .gallery-img-container {
         width: 688px;
     }
