@@ -1,257 +1,384 @@
-@font-face {
-    font-family: 'Inter600';
-    src: url('../../assets/fonts/Inter-SemiBold.ttf');
-    font-weight: 600;
-}
-
-@font-face {
-    font-family: 'Inter400';
-    src: url('../../assets/fonts/Inter-Regular.ttf');
-    font-weight: 400;
-}
-
 :root {
-    --color-bg-main: #E1D4C9;
-    --color-text-dark: #403F3D;
-    --color-accent: #B0907A;
-    --color-gray-dark: #665F55;
-    --color-gray-light: #C1B6AD;
-    --font-semibold: 'Inter600', sans-serif;
-    --font-regular: 'Inter400', sans-serif;
-    --transition-standard: 0.5s ease-in-out;
-    --transition-fast: 0.3s ease;
+  /* Палитра из UI-Kit [Light] */
+  --color-text-primary: #403F3D;
+  --color-text-inverse: #E1D4C9;
+  --color-text-accent: #B0907A;
+  --color-bg-page: #E1D4C9;
+  --color-bg-container: #665F55;
+  
+  /* Цвета интерактивных элементов [Light] */
+  --c-btn-primary-bg: #E1D4C9;
+  --c-btn-secondary-bg: transparent;
+  --c-btn-secondary-border: #665F55;
+  --c-btn-secondary-hover-bg: #665F55;
+  
+  --c-btn-app-bg: transparent;
+  --c-btn-app-border: #665F55;
+  --c-btn-app-hover-bg: #665F55;
+  
+  --c-slider-border: #665F55;
+  --c-slider-hover-bg: #665F55;
+  --c-slider-hover-border: #665F55;
+  
+  --c-social-border: #C1B6AD;
+  --c-social-hover-bg: #E1D4C9;
+  
+  /* Константы для свитчера */
+  --c-icon-beige: #E1D4C9;
+  --c-icon-dark: #403F3D;
+  --c-icon-white: #FFFFFF;
+  --c-circle-accent: #B0907A;
+  --c-circle-hover-light: #665F55;
+  --c-circle-hover-dark: #403F3D;
+  --border-light: #C1B6AD;
+  --border-dark: #665F55;
+
+  /* Шрифты и переходы */
+  --font-semibold: 'Inter600', sans-serif;
+  --font-regular: 'Inter400', sans-serif;
+  --transition-standard: 0.5s ease-in-out;
+  --transition-fast: 0.3s ease;
 }
 
+/* --- Тёмная тема (Инверсия UI-Kit при клике на чекбокс) --- */
+:root:has(#theme-toggle:checked) {
+  /* Палитра из UI-Kit [Dark] */
+  --color-text-primary: #E1D4C9;
+  --color-text-inverse: #E1D4C9;
+  --color-text-accent: #B0907A;
+  --color-bg-page: #292826;
+  --color-bg-container: #403F3D;
+  
+  /* Цвета интерактивных элементов [Dark] */
+  --c-btn-secondary-border: #C1B6AD;
+  --c-btn-secondary-hover-bg: #292826;
+  
+  --c-btn-app-bg: transparent;
+  --c-btn-app-border: #C1B6AD;
+  --c-btn-app-hover-bg: #403F3D;
+  
+  --c-slider-border: #C1B6AD;
+  --c-slider-hover-bg: #403F3D;
+  --c-slider-hover-border: #403F3D;
+  
+  --c-social-border: #665F55;
+  --c-social-hover-bg: #292826;
+}
+
+/* ==========================================================================
+   2. ГЛОБАЛЬНЫЕ СБРОСЫ И СВЯЗЫВАНИЕ ПЕРЕМЕННЫХ
+   ========================================================================== */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
-    box-sizing: border-box;
-    background-color: var(--color-bg-main);
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  background-color: var(--color-bg-page);
+  transition: background-color var(--transition-standard);
 }
 
 body {
-    margin: 0 auto;
-    max-width: 1440px;
+  margin: 0 auto;
+  max-width: 1440px;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-page);
+  transition: background-color var(--transition-standard), color var(--transition-standard);
 }
 
 ul {
-    padding: 0;
+  padding: 0;
 }
 
 p {
-    margin: 0;
+  margin: 0;
+}
+
+a {
+  transition: color var(--transition-standard);
 }
 
 a:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
+/* Типографика с поддержкой тем */
 h1 {
-    font-family: var(--font-semibold);
-    font-size: 72px;
-    line-height: 105%;
-    margin: 0;
-    color: var(--color-bg-main);
+  font-family: var(--font-semibold);
+  font-size: 72px;
+  line-height: 105%;
+  margin: 0;
+  color: var(--color-text-primary); /* На баннере текст ВСЕГДА светлый по макету Фигмы */
 }
 
-h2 {
-    font-family: var(--font-semibold);
-    font-size: 60px;
-    line-height: 125%;
-    margin: 0;
+h2, h3, h4, .header-navigation {
+  font-family: var(--font-semibold);
+  margin: 0;
+  color: var(--color-text-primary);
+  transition: color var(--transition-standard);
 }
 
-h3 {
-    font-family: var(--font-semibold);
-    font-size: 24px;
-    line-height: 125%;
-    margin: 0;
-}
-
-h4, .header-navigation {
-    font-family: var(--font-semibold);
-    font-size: 16px;
-    line-height: 140%;
-    margin: 0;
-}
+h2 { font-size: 60px; line-height: 125%; }
+h3 { font-size: 24px; line-height: 125%; }
+h4, .header-navigation { font-size: 16px; line-height: 140%; }
 
 h5 {
-    font-family: var(--font-regular);
-    font-size: 16px;
-    line-height: 150%;
-    font-weight: 400;
-    margin: 0;
+  font-family: var(--font-regular);
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 400;
+  margin: 0;
+  color: var(--color-text-primary);
+  transition: color var(--transition-standard);
 }
 
 .accent {
-    font-style: italic;
-    color: var(--color-accent);
-}
-
-
-.enjoy-btn,
-.appStore-btn,
-.googlePlay-btn {
-    width: 200px;
-    height: 64px;
-    border-radius: 100px;
+  font-style: italic;
+  color: var(--color-text-accent);
 }
 
 .body-wrapper {
-    margin: 20px 40px;
+  margin: 20px 40px;
 }
 
 .theme-switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 32px;
+  width: 92px;  
+  height: 48px; 
+  cursor: pointer;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Скрываем дефолтный чекбокс */
-.theme-switch input { 
+/* Скрываем чекбокс, но оставляем доступным для клавиатуры */
+.theme-switch-input {
+  position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* Оболочка слайдера */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: #2c2c2c;
-  border-radius: 32px;
-  transition: 0.3s;
+/* Трек свитчера */
+.switch-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 48px;
+  padding: 4px; 
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  transition: border-color 0.3s ease;
+  gap: 5px;
+}
+
+/* Две интерактивные половины */
+.icon-wrapper {
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 6px;
+  justify-content: center;
+  position: relative;
 }
 
-/* Круглый ползунок */
-.slider:before {
+/* Круглая подложка */
+.icon-wrapper::before {
+  content: '';
   position: absolute;
-  content: "";
-  height: 24px;
-  width: 24px;
-  left: 4px;
-  bottom: 4px;
-  background-color: #fff;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  transition: 0.3s;
-  z-index: 2;
-}
-
-/* Логика переключения */
-input:checked + .slider {
-  background-color: #e2e8f0;
-}
-
-input:checked + .slider:before {
-  transform: translateX(28px);
-  background-color: #1a202c;
-}
-
-.icon {
-  font-size: 14px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, background-color 0.3s ease;
+  transform: scale(0.8);
+  opacity: 0; 
   z-index: 1;
-  user-select: none;
+}
+
+/* Иконка с маской */
+.icon-img {
+  width: 18px;  
+  height: 18px;
+  transition: background-color 0.3s ease;
+  z-index: 2;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.icon-sun .icon-img {
+  -webkit-mask-image: url('../../assets/icons/sun.svg');
+  mask-image: url('../../assets/icons/sun.svg');
+}
+
+.icon-moon .icon-img {
+  -webkit-mask-image: url('../../assets/icons/moon.svg');
+  mask-image: url('../../assets/icons/moon.svg');
+}
+
+/* =======================================================
+   СОСТОЯНИЕ 1: LIGHT THEME (Чекбокс НЕ активен)
+   ======================================================= */
+
+/* Солнце активно по умолчанию */
+.theme-switch-input:not(:checked) ~ .switch-track .icon-sun::before {
+  background-color: var(--c-circle-accent);
+  opacity: 1;
+  transform: scale(1);
+}
+.theme-switch-input:not(:checked) ~ .switch-track .icon-sun .icon-img {
+  background-color: var(--c-icon-beige);
+}
+
+/* Луна неактивна */
+.theme-switch-input:not(:checked) ~ .switch-track .icon-moon::before { opacity: 0; }
+.theme-switch-input:not(:checked) ~ .switch-track .icon-moon .icon-img {
+  background-color: var(--c-icon-dark);
+}
+
+/* Ховер на Луну в светлой теме */
+.theme-switch:hover .theme-switch-input:not(:checked) ~ .switch-track .icon-moon::before {
+  background-color: var(--c-circle-hover-light);
+  opacity: 1;
+  transform: scale(1);
+}
+.theme-switch:hover .theme-switch-input:not(:checked) ~ .switch-track .icon-moon .icon-img {
+  background-color: var(--c-icon-beige);
 }
 
 
+/* =======================================================
+   СОСТОЯНИЕ 2: DARK THEME (Чекбокс АКТИВЕН)
+   ======================================================= */
+.theme-switch-input:checked ~ .switch-track {
+  border-color: var(--border-dark);
+}
+
+/* Солнце неактивно */
+.theme-switch-input:checked ~ .switch-track .icon-sun::before { opacity: 0; transform: scale(0.8); }
+.theme-switch-input:checked ~ .switch-track .icon-sun .icon-img {
+  background-color: var(--c-icon-beige);
+}
+
+/* Луна активна */
+.theme-switch-input:checked ~ .switch-track .icon-moon::before {
+  background-color: var(--c-circle-accent);
+  opacity: 1;
+  transform: scale(1);
+}
+.theme-switch-input:checked ~ .switch-track .icon-moon .icon-img {
+  background-color: var(--c-icon-beige);
+}
+
+/* Ховер на Солнце в темной теме */
+.theme-switch:hover .theme-switch-input:checked ~ .switch-track .icon-sun::before {
+  background-color: var(--c-circle-hover-dark);
+  opacity: 1;
+  transform: scale(1);
+}
+.theme-switch:hover .theme-switch-input:checked ~ .switch-track .icon-sun .icon-img {
+  background-color: var(--c-icon-white);
+}
+/* ==========================================================================
+   4. ШАПКА САЙТА (HEADER) И НАВИГАЦИЯ — ИСПРАВЛЕННЫЙ ФЛЭКС СЕТКИ
+   ========================================================================== */
 .header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Выравнивание элементов строго по центру */
 }
 
 .header a {
-    text-decoration: none;
-    color: var(--color-text-dark);
-}
-
-.header-navigation-wrapper {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-    margin-left: 27%;
+  text-decoration: none;
+  color: var(--color-text-primary);
 }
 
 .header-navigation {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    color: var(--color-text-dark);
-    gap: 40.6px;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  color: var(--color-text-primary);
+  gap: 40px;
 }
 
 .header-navigation li {
-    margin-top: -8px;
+  margin-top: 0;
 }
 
 .header-navigation a {
-    text-decoration: none;
-    color: var(--color-text-dark);
-    position: relative;
-    display: inline-block;
+  text-decoration: none;
+  color: var(--color-text-primary);
+  position: relative;
+  display: inline-block;
 }
 
 .header-navigation a::after,
 .logo-menu::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 25px;
-    display: block;
-    height: 2px;
-    width: 0;
-    background: var(--color-text-dark);
-    border-radius: 1px;
-    transition: width 0.8s ease, left 0.8s ease;
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 25px;
+  display: block;
+  height: 2px;
+  width: 0;
+  background: var(--color-text-primary);
+  border-radius: 1px;
+  transition: width 0.8s ease, left 0.8s ease;
+}
+
+
+.logo-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
 }
 
 .logo-menu::after {
-   margin-top: -8px;
+  margin-top: -8px;
 }
 
-.logo-menu {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    position: relative;
-    cursor: pointer;
-}
-
-.logo-menu h4 {
-    margin-top: -7px;
-}
-
+.logo-menu h4,
 .logo-menu img {
-    margin-top: -13px;
+  margin-top: 0;
 }
 
-.burger-icon {
-    display: none;
-}
-
-
+/* --- Ховер-эффекты для десктопов --- */
 @media (hover: hover) {
-    .header-navigation a:hover::after,
-    .logo-menu:hover::after {
-        animation: a-nav 3s forwards;
-        width: 100%;
-        left: 0;
-    }
+  .header-navigation a:hover::after,
+  .logo-menu:hover::after {
+    left: 0;
+    width: 100%;
+    animation: a-nav 3s forwards;
+  }
 }
 
+/* --- Ключевые кадры анимации --- */
 @keyframes a-nav {
-    0% { opacity: 0; }
-    50% { opacity: 0.8; }
-    100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.header-controls {
+    display: flex;
+    gap: 20px;
+}
+
+
+.burger-menu {
+    display: none;
 }
 
 .main {
@@ -260,34 +387,31 @@ input:checked + .slider:before {
     justify-content: space-between;
 }
 
+/* --- Секция Enjoy (Баннер) --- */
 .enjoy {
     position: relative;
     margin-top: 16px;
     overflow: hidden;
     border-radius: 40px;
     padding: 7.35% 0 7.35% 7.35%;
+    background-color: #211F1D; /* Темная подложка на случай, если видео долго грузится */
 }
 
 #video {
+    position: absolute;
     top: 50%;
     left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Видео идеально заполняет весь баннер без искажений */
     transform: translate(-50%, -50%);
-    position: absolute;
-    z-index: -5;
+    z-index: 1; /* Поднимаем видео над фоном секции */
 }
 
 .enjoy-overlay {
+    position: relative;
     width: 530px;
-}
-
-.enjoy-overlay a {
-    text-decoration: none;
-    color: var(--color-text-dark);
-}
-
-.enjoy-overlay h5 {
-    color: var(--color-bg-main);
-    margin: 20px 0 0;
+    z-index: 2; /* Контент баннера должен быть строго ПОВЕРХ видео */
 }
 
 .enjoy-text {
@@ -296,35 +420,67 @@ input:checked + .slider:before {
     gap: 21px;
 }
 
+/* Фиксация: текст на баннере с видео ВСЕГДА светлый */
+.enjoy-text h1,
+.enjoy-overlay h5 {
+    color: #E1D4C9 !important;
+    margin: 0;
+}
+
+/* Описание на баннере тоже принудительно делаем светлым */
+.enjoy-text p {
+    color: #E1D4C9 !important;
+}
+
 .enjoy-btn {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
+    gap: 8px;
+    width: 200px;
+    height: 64px;
     margin-top: 19px;
     border-style: none;
-    background-color: var(--color-bg-main);
+    border-radius: 100px;
+    background-color: var(--color-bg-page);
     font-family: var(--font-semibold);
     font-size: 16px;
     cursor: pointer;
+    color: var(--color-text-primary); /* Текст ВСЕГДА темный на светлой кнопке */
+    z-index: 2;
+    position: relative;
+    overflow: hidden;
+    transition: background-color var(--transition-fast);
 }
 
 .enjoy-btn-img {
+    width: 20px;
+    height: 20px;
     opacity: 0;
-    margin-right: 60px;
-    transition: opacity var(--transition-standard);
+    transform: translateX(10px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
-@media (hover: hover) {
+
+.enjoy-overlay a {
+    text-decoration: none;
+}
+
+
+@media (hover:hover) {
     .enjoy-btn:hover .enjoy-btn-text {
-        margin-right: 8px;
-        transition: margin var(--transition-standard);
+        /* Эффект легкого смещения текста при ховере */
+        transform: translateX(-4px);
+        transition: transform 0.3s ease;
     }
-    
     .enjoy-btn:hover .enjoy-btn-img {
         opacity: 1;
+        transform: translateX(0);
     }
 }
 
+
+/* --- Секция Слайдера (Favourite Coffee) --- */
 .favourite-coffee {
     margin-top: 92px;
     position: relative;
@@ -335,12 +491,8 @@ input:checked + .slider:before {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    color: var(--color-text-dark);
+    color: var(--color-text-primary);
     margin-top: 8px;
-}
-
-.text-favorite h2 span.accent {
-    margin-left: 0;
 }
 
 .favorite-slider-container {
@@ -365,8 +517,7 @@ input:checked + .slider:before {
     height: 640px;
     position: absolute;
     display: none;
-    animation-duration: 0.5s;
-    animation-timing-function: ease-in-out;
+    animation: 0.5s ease-in-out;
 }
 
 .slider-img-container.active,
@@ -374,59 +525,91 @@ input:checked + .slider:before {
     display: block;
 }
 
-
 .to-left { animation-name: left; }
 .to-right { animation-name: right; animation-direction: reverse; }
 .from-left { animation-name: left; animation-direction: reverse; }
 .from-right { animation-name: right; }
 
-@keyframes left {
-    from { left: 0; }
-    to { left: -100%; }
-}
+@keyframes left { from { left: 0; } to { left: -100%; } }
+@keyframes right { from { left: 100%; } to { left: 0; } }
 
-@keyframes right {
-    from { left: 100%; }
-    to { left: 0; }
-}
-
+/* Индикаторы прогресса слайдера */
 .line-container {
     display: flex;
     cursor: pointer;
     justify-content: center;
-    margin-top: 39px;
+    align-items: center;
+    margin: 40px auto 0 auto; 
     gap: 12px;
-}
+    width: 144px; 
+    max-width: 100%;
+   }
 
+/* Оболочка палочки: использует вашу переменную --border-light из макета */
 .line-img-container {
     width: 40px;
     height: 4px;
-    border-radius: 20px;
-    background: var(--color-gray-light);
+    border-radius: 100px;
+    background-color: var(--border-light); /* Неактивная серая линия по умолчанию */
     margin: 0;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0; 
+    transition: background-color var(--transition-fast);
 }
 
+/* Внутренняя линия, которая будет заполняться при анимации */
 .line-img {
+    display: block;
+    width: 0; 
     height: 4px;
-}
-
-.active-line {
-    background-color: var(--color-gray-dark);
-    cursor: default;
-    animation: move 5s linear forwards;
     border-radius: 20px;
+    background-color: var(--c-slider-border); /* ИСПРАВЛЕНО: Берем точную переменную цвета заполнения */
 }
 
+/* Анимация плавного заполнения прогресс-бара за 5 секунд */
 @keyframes move {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-@media (hover: hover) {
-    .line-img:hover {
-        background-color: var(--color-gray-dark);
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
     }
 }
+
+/* Класс активности */
+.line-img.active-line {
+    width: 100%; 
+    background-color: var(--c-slider-border); 
+    animation: move 5s linear forwards; 
+}
+/* ==========================================================================
+   ЛОГИКА ПАУЗЫ АНИМАЦИИ ПРИ НАВЕДЕНИИ КУРСОРA (HOVER PAUSE)
+   ========================================================================== */
+/* Класс активности */
+.line-img.active-line {
+    width: 100%; 
+    background-color: var(--c-slider-border); 
+    animation: move 5s linear forwards; 
+}
+
+/* ==========================================================================
+   ЛОГИКА ДЛЯ ХОВЕРА И ПАУЗЫ (HOVER & PAUSE FIX)
+   ========================================================================== */
+@media (hover: hover) {
+    /* 1. ПАУЗА: При наведении на слайдер бегущая линия замирает ровно там, где была */
+    .favorite-coffee-slider:hover .line-img.active-line {
+        animation-play-state: paused;
+    }
+
+    /* 2. ХОВЕР НА НЕАКТИВНЫЕ: Подсвечиваем только те палочки, которые сейчас НЕ активны */
+    .line-img-container:not(:has(.active-line)):hover {
+        background-color: var(--c-slider-hover-bg);
+    }
+}
+
+
+
 
 .arrows {
     width: 99.5%;
@@ -441,43 +624,49 @@ input:checked + .slider:before {
     cursor: pointer;
     width: 60px;
     height: 60px;
-    border-radius: 100%;
-    border: 1px solid var(--color-gray-dark);
+    border-radius: 50%;
+    border: 1px solid var(--c-slider-border);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color var(--transition-standard), background var(--transition-standard);
+    background-color: transparent;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+
+.arrow-prev, .arrow-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .arrow-prev { background: no-repeat center url(../../assets/icons/arrow-left.svg); }
 .arrow-next { background: no-repeat center url(../../assets/icons/arrow-right.svg); }
 
-@media (hover: hover) {
+@media (hover:hover) {
     .arrow-prev:hover {
         background: no-repeat center url(../../assets/icons/arrow-left-hover.svg);
-        background-color: var(--color-gray-dark);
+        background-color: var(--c-slider-hover-bg);
+        border-color: var(--c-slider-hover-border);
     }
+    
     .arrow-next:hover {
         background: no-repeat center url(../../assets/icons/arrow-right-hover.svg);
-        background-color: var(--color-gray-dark);
+        background-color: var(--c-slider-hover-bg);
+        border-color: var(--c-slider-hover-border);
     }
 }
-
 .description-coffee {
     text-align: center;
     margin-top: 17px;
-    color: var(--color-text-dark);
+    color: var(--color-text-primary);
 }
 
-.description-coffee-about {
-    font-size: 16px;
-    margin-top: 15px;
-}
+.description-coffee-about { margin-top: 15px; }
+.description-coffee-cost { margin-top: 17px; }
 
-.description-coffee-cost {
-    margin-top: 17px;
-}
-
+/* --- Секция Галереи (About) --- */
+/*---------------about----------------*/
 .about {
     margin-top: 100px;
 }
@@ -487,22 +676,25 @@ input:checked + .slider:before {
 }
 
 .about-text h2 {
-    color: var(--color-text-dark);
+    color: var(--color-text-primary);
 }
 
 .about-gallery {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: flex-start;
+    flex-wrap: nowrap; /* Принудительно выстраивает в два столбца на десктопе */
     gap: 40px;
     margin-top: 40px;
 }
 
 .gallery-one-column,
 .gallery-second-column {
-    display: flex;
+     display: flex;
     flex-direction: column;
     gap: 40px;
+    flex: 1; /* Равномерно распределяет ширину колонок */
+    max-width: 660px;
 }
 
 .gallery-img-container {
@@ -510,7 +702,7 @@ input:checked + .slider:before {
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 660px;
+    width: 100%; /* Занимает всю ширину колонки */
     height: 590px;
     overflow: hidden;
     border-radius: 20px;
@@ -526,13 +718,15 @@ input:checked + .slider:before {
     transition: transform 0.8s ease;
     transform: scale(1.23);
     height: 100%;
+    width: 100%;
+    object-fit: cover; /* Чтобы картинка не сжималась при изменении пропорций */
 }
 
 .about-mini-img {
     transform: scale(1.69);
 }
 
-@media (hover: hover) {
+@media (hover:hover) {
     .gallery-img:hover {
         transform: scale(1.13);
         transition: transform 1s ease;
@@ -542,63 +736,95 @@ input:checked + .slider:before {
     }
 }
 
+
+/* --- Секция Приложения (MobileApp) --- */
+/*-------------mobileApp-----------*/
 .mobileApp {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 44px;
+    justify-content: space-between; /* Распределяем текст и телефоны по краям */
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    margin-top: 100px;
 }
 
 .app-text {
-    margin-top: 200px;
+    margin-top: 68px; /* Выравниваем по высоте с телефонами */
     width: 625px;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    color: var(--color-text-dark);
+    color: var(--color-text-primary);
 }
 
-.app-text h5 {
-    margin-top: 25px;
-    color: var(--color-text-dark);
+.app-text h2 {
+    line-height: 125%;
+}
+
+.app-text p {
+    font-family: var(--font-regular);
+    font-size: 16px;
+    line-height: 150%;
+    color: var(--color-text-primary);
 }
 
 .app-images {
-    margin-top: 56px;
-    margin-left: 105px;
+    margin-top: 0;
+    margin-left: auto;
 }
 
 .buttons-app {
     display: flex;
-    gap: 17px;
+    gap: 20px;
     margin-top: 25px;
 }
 
+/* Овальные кнопки по ТЗ и UI-Kit */
 .appStore-btn,
 .googlePlay-btn {
     display: flex;
     align-items: center;
-    border: 1px solid var(--color-gray-dark);
-    background-color: transparent;
+    justify-content: flex-start;
+    width: 200px;
+    height: 64px;
+    border-radius: 100px; /* Идеальный овал капсулы */
+    background-color: var(--c-btn-app-bg);
+    border: 1px solid var(--c-btn-app-border);
     cursor: pointer;
-    transition: background-color var(--transition-standard), color var(--transition-standard);
+    color: var(--color-text-primary);
+    padding: 0;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
-
+/* Иконки приложений видны ИЗНАЧАЛЬНО */
 .img-appStore-btn,
 .img-googlePlay-btn {
     width: 36px;
     height: 36px;
     margin-left: 20px;
-    transition: background var(--transition-fast);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-color var(--transition-fast);
 }
 
-.img-appStore-btn { background: no-repeat center url(../../assets/icons/icon-app-store.svg); }
-.img-googlePlay-btn { background: no-repeat center url(../../assets/icons/icon-google-play.svg); }
+.img-appStore-btn {
+    background-color: var(--color-text-primary);
+    -webkit-mask: url('../../assets/icons/icon-app-store.svg') no-repeat center / contain;
+    mask: url('../../assets/icons/icon-app-store.svg') no-repeat center / contain;
+}
+
+.img-googlePlay-btn {
+    background-color: var(--color-text-primary);
+    -webkit-mask: url('../../assets/icons/icon-google-play.svg') no-repeat center / contain;
+    mask: url('../../assets/icons/icon-google-play.svg') no-repeat center / contain;
+}
 
 .text-appStore,
 .text-googlePlay {
-    margin-left: 4%;
-    text-align: justify;
+    margin-left: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
 }
 
 .text-under-name-app {
@@ -606,114 +832,185 @@ input:checked + .slider:before {
     font-weight: 400;
     font-size: 10px;
     line-height: 140%;
+    margin: 0;
 }
-
 .name-app {
     font-family: var(--font-semibold);
     font-size: 16px;
     line-height: 150%;
+    margin: 0;
 }
 
-@media (hover: hover) {
+/* Эффект ховера */
+/* Эффект ховера строго по макету Фигмы */
+@media (hover:hover) {
+    /* Красим обертку кнопки при наведении */
     .appStore-btn:hover,
     .googlePlay-btn:hover {
-        background-color: var(--color-gray-dark);
-        color: var(--color-bg-main);
+        background-color: var(--c-btn-app-hover-bg) !important;
+        border-color: var(--c-btn-app-hover-bg) !important;
     }
     
-    .appStore-btn:hover .img-appStore-btn {
-        background: no-repeat center url(../../assets/icons/icon-app-store-hover.svg);
+    /* ИСПРАВЛЕНО: Явно перекрашиваем все внутренние тексты, параграфы и ссылки при ховере */
+    .appStore-btn:hover p,
+    .googlePlay-btn:hover p,
+    .appStore-btn:hover .text-under-name-app,
+    .googlePlay-btn:hover .text-under-name-app,
+    .appStore-btn:hover .name-app,
+    .googlePlay-btn:hover .name-app {
+        color: var(--color-text-inverse) !important;
     }
     
+    /* Красим иконку-маску при наведении */
+    .appStore-btn:hover .img-appStore-btn,
     .googlePlay-btn:hover .img-googlePlay-btn {
-        background: no-repeat center url(../../assets/icons/icon-google-play-hover.svg);
+        background-color: var(--color-text-inverse) !important; 
     }
 }
 
+.text-appStore, .text-googlePlay { margin-left: 4%; text-align: justify; }
+.text-under-name-app { font-family: var(--font-regular); font-weight: 400; font-size: 10px; line-height: 140%; }
+.name-app { font-family: var(--font-semibold); font-size: 16px; line-height: 150%; }
+
+/* --- Секция Подвала (Footer) --- */
+/*----------footer----------*/
+/*----------footer----------*/
+/* ==========================================================================
+   СЕКЦИЯ ПОДВАЛА (FOOTER)
+   ========================================================================== */
 .footer {
-    margin: 7% 40px 0 40px;
+    margin: 100px 0 0;
 }
 
 .footer-wrapper {
     display: flex;
-    flex-wrap: wrap;
-    background-color: var(--color-gray-dark);
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: var(--color-bg-container);
     border-radius: 40px;
-    gap: 10%;
+    padding: 100px;
+    gap: 40px;
+}
+
+/* Левая колонка (Заголовок и соцсети) */
+.footer-one-column {
+    width: 530px;
+    margin-left: 0;
+    padding-top: 0;
 }
 
 .footer-wrapper h2 {
-    color: var(--color-bg-main);
-}
-
-.footer-one-column {
-    width: 530px;
-    margin-left: 101px;
-    padding-top: 99px;
+    color: var(--color-text-inverse) !important;
 }
 
 .social {
     display: flex;
     align-items: center;
     margin-top: 40px;
-    padding-bottom: 100px;
-    gap: 10px;
+    padding-bottom: 0;
+    gap: 12px;
 }
 
+/* Круглая кнопка соцсети с правильной переменной рамки */
 .social-animation {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--color-gray-light);
     width: 60px;
     height: 60px;
-    border-radius: 100%;
+    border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.8s ease;
+    background-color: transparent;
+    /* ИСВРАВЛЕНО: Берем точную переменную рамки из UI-Kit */
+    border: 1px solid var(--c-social-border); 
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
+.social-animation a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+/* Базовые свойства SVG-масок для иконок */
 .social-img {
-    width: 36px;
-    height: 36px;
-    transition: background var(--transition-standard);
+    width: 24px;
+    height: 24px;
+    /* ИСВРАВЛЕНО: Изначальный цвет иконки привязан к общему инверсному тексту (кремовый) */
+    background-color: var(--color-text-inverse);
+    transition: background-color var(--transition-fast);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
-.twitter-img { background: no-repeat center url(../../assets/icons/twitter.svg); }
-.instagram-img { background: no-repeat center url(../../assets/icons/instagram.svg); }
-.facebook-img { background: no-repeat center url(../../assets/icons/facebook.svg); }
+/* Пути к SVG-контурам */
+.twitter-img {
+    -webkit-mask-image: url('../../assets/icons/twitter.svg');
+    mask-image: url('../../assets/icons/twitter.svg');
+}
 
+.instagram-img {
+    -webkit-mask-image: url('../../assets/icons/instagram.svg');
+    mask-image: url('../../assets/icons/instagram.svg');
+}
+
+.facebook-img {
+    -webkit-mask-image: url('../../assets/icons/facebook.svg');
+    mask-image: url('../../assets/icons/facebook.svg');
+}
+
+/* Интерактивный ховер с использованием ваших точных переменных */
 @media (hover: hover) {
     .social-animation:hover {
-        background-color: var(--color-bg-main);
+        /* ИСПРАВЛЕНО: Круг и его рамка перекрашиваются строго по UI-Kit переменной ховера */
+        background-color: var(--c-social-hover-bg);
+        border-color: var(--c-social-hover-bg);
     }
+
     .social-animation:hover .social-img {
-        fill: var(--color-text-dark);
-        overflow: visible;
+        /* ИСПРАВЛЕНО: Иконка меняет цвет на темно-серый, считывая текущую тему */
+        background-color: #403F3D; 
     }
-    .social-animation:hover .twitter-img { background: no-repeat center url(../../assets/icons/twitter-hover.svg); }
-    .social-animation:hover .instagram-img { background: no-repeat center url(../../assets/icons/instagram-hover.svg); }
-    .social-animation:hover .facebook-img { background: no-repeat center url(../../assets/icons/facebook-hover.svg); }
 }
 
+
+/* Правая колонка (Контакты и время работы) */
 .footer-two-column {
-    color: var(--color-bg-main);
     display: flex;
     flex-direction: column;
-    margin-top: 135px;
-    margin-left: -36px;
+    align-items: flex-start;
+    margin-top: 0;
+    margin-left: 0;
+    width: 482px;
 }
 
 .footer-two-column h3 {
-    margin-bottom: 16px;
+    font-family: var(--font-semibold);
+    font-size: 24px;
+    line-height: 125%;
+    margin-bottom: 40px;
+    color: var(--color-text-inverse) !important;
 }
 
 .adress,
 .phone,
 .times {
     display: flex;
-    font-family: var(--font-regular);
-    gap: 10px;
-    margin-top: 20px;
+    align-items: center;
+    gap: 12px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.times {
+    margin-bottom: 0;
 }
 
 .phone,
@@ -725,50 +1022,56 @@ input:checked + .slider:before {
 .phone a,
 .times p {
     font-family: var(--font-semibold);
+    font-size: 16px;
+    line-height: 140%;
+    color: var(--color-text-inverse) !important;
+    text-decoration: none;
+    margin: 0;
 }
 
 .adress a,
 .phone a {
-    text-decoration: none;
-    color: var(--color-bg-main);
     position: relative;
     display: inline-block;
 }
 
-.adress img,
-.phone img {
-    margin-left: 2px;
-}
-
+/* Тонкая линия подчеркивания при ховере на ссылки контактов */
 .adress a::after,
 .phone a::after {
     content: "";
     position: absolute;
     left: 50%;
-    top: 25px;
+    top: 22px;
     display: block;
-    height: 2px;
+    height: 1px;
     width: 0;
-    background: var(--color-bg-main);
-    border-radius: 1px;
-    transition: width 0.8s ease, left 0.8s ease;
+    background: var(--color-text-inverse);
+    transition: width 0.3s ease, left 0.3s ease;
 }
 
 @media (hover: hover) {
     .adress a:hover::after,
     .phone a:hover::after {
-        animation: footer 3s forwards;
         width: 100%;
         left: 0;
     }
 }
 
-@keyframes footer {
-    0% { opacity: 0; }
-    50% { opacity: 0.8; }
-    100% { opacity: 1; }
+.adress img,
+.phone img,
+.times img {
+    width: 20px;
+    height: 20px;
+    margin: 0;
 }
 
+
+
+/* ==========================================================================
+   6. МЕДИА-ЗАПРОСЫ (АДАПТИВНОСТЬ)
+   ========================================================================== */
+
+/* --- Макс. ширина 1060px (Планшеты горизонтальные) --- */
 @media screen and (max-width: 1060px) {
     .footer {
         margin-top: 13%;
@@ -785,6 +1088,7 @@ input:checked + .slider:before {
     }
 }
 
+/* --- Макс. ширина 768px (Планшеты вертикальные) --- */
 @media screen and (max-width: 768px) {
     body {
         max-width: 768px;
@@ -798,13 +1102,14 @@ input:checked + .slider:before {
         position: relative;
     }
 
+    /* Навигация (Мобильное меню) */
     .header-navigation-wrapper {
         display: block;
         position: fixed;
         top: 80px;
         right: -100%;
         width: 100%;
-        background-color: var(--color-bg-main);
+        background-color: var(--color-bg-page);
         transition: right 0.8s ease;
         margin-top: 10px;
         height: 100vh;
@@ -830,6 +1135,7 @@ input:checked + .slider:before {
         transform: scale(2);
     }
 
+    /* Бургер-иконка */
     .burger-menu {
         display: flex;
         align-items: center;
@@ -837,7 +1143,7 @@ input:checked + .slider:before {
         width: 44px;
         height: 44px;
         border-radius: 100%;
-        border: 1px solid var(--color-text-dark);
+        border: 1px solid var(--color-text-primary);
         margin-top: 8px;
         position: relative;
     }
@@ -851,34 +1157,37 @@ input:checked + .slider:before {
         width: 16px;
         height: 10px;
         cursor: pointer;
-        transition: 0.8s;
+        transition: transform 0.8s ease;
     }
 
     .one-line,
     .two-line {
-        display: block;
         position: absolute;
         width: 16px;
         height: 1px;
         transition: all 0.8s ease 0s;
-        background-color: var(--color-text-dark);
+        background-color: var(--color-text-primary);
     }
 
-    .one-line { top: 0; }
-    .two-line { top: 10px; }
+    .one-line {
+        top: 0;
+    }
+
+    .two-line {
+        top: 10px;
+    }
 
     .one-line.active {
         transform: rotate(-45deg);
-        transition: transform 0.5s ease;
         top: 4px;
     }
 
     .two-line.active {
         transform: rotate(45deg);
-        transition: transform 0.5s ease;
         top: 4px;
     }
 
+    /* Секции контента */
     .enjoy {
         padding: 14.35% 0 15.35% 8.35%;
     }
@@ -939,6 +1248,7 @@ input:checked + .slider:before {
     }
 }
 
+/* --- Макс. ширина 720px (Мобильные устройства) --- */
 @media screen and (max-width: 720px) {
     h1 {
         font-size: 42px;
@@ -981,10 +1291,6 @@ input:checked + .slider:before {
     .about-text {
         margin-left: 15px;
         margin-right: 12px;
-    }
-
-    .about-text h2 {
-        margin-right: 0;
     }
 
     .gallery-one-column,
@@ -1037,6 +1343,7 @@ input:checked + .slider:before {
     }
 }
 
+/* --- Макс. ширина 380px (Узкие смартфоны) --- */
 @media screen and (max-width: 380px) {
     .line-container {
         margin-top: -67px;
