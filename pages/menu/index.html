@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../menu/style.css">
+  <link rel="icon" href="../../assets/icons/coffee-cup.svg" sizes="32x32">
+  <title>Coffee House</title>
+</head>
+
+<body>
+  <div class="body-wrapper">
+    <header class="header">
+      <a href="../home/index.html" class="logo">
+        <img src="../../assets/icons/logo.svg" alt="Coffee House Logo">
+      </a>
+      <nav class="header-navigation-wrapper">
+        <ul class="header-navigation">
+          <li><a href="#favoriteCoffee" class="header-nav-list-li">Favorite coffee</a></li>
+          <li><a href="#about" class="header-nav-list-li">About</a></li>
+          <li><a href="#mobileApp" class="header-nav-list-li">Mobile app</a></li>
+          <li><a href="#contactUs" class="header-nav-list-li">Contact us</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <label class="theme-switch" for="theme-toggle">
+          <input type="checkbox" id="theme-toggle" class="theme-switch-input">
+          <span class="switch-track">
+            <span class="icon-wrapper icon-sun">
+              <span class="icon-img"></span>
+            </span>
+            <span class="icon-wrapper icon-moon">
+              <span class="icon-img"></span>
+            </span>
+          </span>
+        </label>
+        <a href="../menu/index.html" class="logo-menu">
+          <h4>Menu</h4>
+          <img src="../../assets/icons/coffee-cup.svg" alt="coffee cup" />
+        </a>
+      </div>
+      <div class="burger-menu" role="button" aria-label="Toggle menu">
+        <div class="burger-icon">
+          <span class="one-line"></span>
+          <span class="two-line"></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="title">
+        <h1>Behind each of our cups hides an <span class="accent">amazing surprise</span></h1>
+      </div>
+
+      <div class="drink-type">
+        <div class="type-coffee drink-type-button checked" data-type="coffee" role="button">
+          <div class="circle type-drink-circle">
+            <img src="../../assets/icons/icon-coffee-menu.svg" alt="coffee icon">
+          </div>
+          <p class="type-drink-text">Coffee</p>
+        </div>
+        <div class="type-tea drink-type-button" data-type="tea" role="button">
+          <div class="circle type-drink-circle">
+            <img src="../../assets/icons/icon-tea-menu.svg" alt="tea icon">
+          </div>
+          <p class="type-drink-text">Tea</p>
+        </div>
+        <div class="type-dessert drink-type-button" data-type="dessert" role="button">
+          <div class="circle type-drink-circle">
+            <img src="../../assets/icons/icon-dessert-menu.svg" alt="dessert icon">
+          </div>
+          <p class="type-drink-text">Dessert</p>
+        </div>
+      </div>
+
+      <div class="menu-cards-wrapper"></div>
+      <div class="load-img"></div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-wrapper">
+        <div class="footer-one-column">
+          <div class="footer-text">
+            <h2>Sip, Savor, Smile. <span class="accent">It’s coffee time!</span></h2>
+          </div>
+          <div class="social">
+            <span class="twitter social-animation">
+              <a href="https://twitter.com" aria-label="Twitter">
+                <svg class="twitter-img social-img"></svg>
+              </a>
+            </span>
+            <span class="instagram social-animation">
+              <a href="https://instagram.com" aria-label="Instagram">
+                <svg class="instagram-img social-img"></svg>
+              </a>
+            </span>
+            <span class="facebook social-animation">
+              <a href="https://facebook.com" aria-label="Facebook">
+                <svg class="facebook-img social-img"></svg>
+              </a>
+            </span>
+          </div>
+        </div>
+
+        <div class="footer-two-column" id="contactUs">
+          <h3>Contact us</h3>
+          <div class="adress">
+            <a href="https://maps.app.goo.gl/3GMNGY9WEgMi9nmB6" target="_blank" rel="noopener noreferrer">
+              <img src="../../assets/icons/pin-alt.svg" alt="location pin" />
+              8558 Green Rd., LA
+            </a>
+          </div>
+          <div class="phone">
+            <a href="tel:+16035550123">
+              <img src="../../assets/icons/phone.svg" alt="phone icon" />
+              +1 (603) 555-0123
+            </a>
+          </div>
+          <div class="times">
+            <img src="../../assets/icons/clock.svg" alt="clock icon" />
+            <p>Mon-Sat: 9:00 – 23:00</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal-wrapper">
+      <div class="modal">
+        <div class="modal-img">
+          <div class="menu-card-img-container">
+            <img src="../../assets/images/imgMenu/coffee-1.jpg" class="menu-card-img" alt="Irish coffee">
+          </div>
+        </div>
+        <div class="information-container">
+          <div class="name-position">Irish coffee</div>
+          <div class="more-detail-position">Fragrant black coffee with Jameson Irish whiskey and whipped milk</div>
+
+          <div class="size-position">
+            <p>Size</p>
+            <div class="choise-size">
+              <div class="size-button button-choise-size checked" data-price="0" role="button">
+                <div class="circle-btn">
+                  <p>S</p>
+                </div>
+                <p class="size-ml s">200 ml</p>
+              </div>
+              <div class="size-button button-choise-size" data-price="0.5" role="button">
+                <div class="circle-btn">
+                  <p>M</p>
+                </div>
+                <p class="size-ml m">300 ml</p>
+              </div>
+              <div class="size-button button-choise-size" data-price="1" role="button">
+                <div class="circle-btn">
+                  <p>L</p>
+                </div>
+                <p class="size-ml l">400 ml</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="additives-position">
+            <p>Additives</p>
+            <div class="choise-size">
+              <div class="size-button button-additives" data-price="0.5" role="button">
+                <div class="circle-btn">
+                  <p>1</p>
+                </div>
+                <p class="size-ml additives-one">Sugar</p>
+              </div>
+              <div class="size-button button-additives" data-price="0.5" role="button">
+                <div class="circle-btn">
+                  <p>2</p>
+                </div>
+                <p class="size-ml additives-two">Cinnamon</p>
+              </div>
+              <div class="size-button button-additives" data-price="0.5" role="button">
+                <div class="circle-btn">
+                  <p>3</p>
+                </div>
+                <p class="size-ml additives-three">Syrup</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="total">
+            <p>Total:</p>
+            <div class="cost-position">$7.00</div>
+          </div>
+          <div class="line-opacity"></div>
+          <div class="info-little-font">
+            <img src="../../assets/icons/info-empty.svg" alt="info icon">
+            <p>The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty
+              points and enjoy your favorite coffee with up to 20% discount.</p>
+          </div>
+          <div class="close" role="button">Close</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/themeSwitcher.js"></script>
+    <script src="../menu/script.js" type="module"></script>
+  </div>
+</body>
+
+</html>
