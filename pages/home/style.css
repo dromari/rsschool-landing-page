@@ -542,10 +542,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .enjoy {
-    padding: 14.35% 0 15.35% 8.35%;
-  }
-
   .enjoy-overlay {
     width: 92%;
   }
@@ -602,28 +598,12 @@
 }
 
 @media screen and (max-width: 720px) {
-  .enjoy {
-    padding: 17.35% 0 15.35% 4.35%;
-  }
-
-  .enjoy-overlay h5 {
-    margin: 18px -13px 0 0;
-  }
-
-  .text-favorite {
-    gap: 9.5%;
-  }
-
   .slider-img {
     width: 100%;
   }
 
   .arrows {
     display: none;
-  }
-
-  .description-coffee-about {
-    margin: 15px 0 0 0;
   }
 
   .about-text {
