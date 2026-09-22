@@ -29,21 +29,11 @@
 .title {
   color: var(--color-text-primary);
   text-align: center;
-  width: 800px;
-}
-
-.title h1 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--color-text-primary);
-  font-size: 60px;
-  line-height: 125%;
 }
 
 .drink-type {
   display: flex;
-  gap: 12px;
+  gap: clamp(5px, 1.5vw + 2px, 12px);
   margin-top: 2.9%;
 }
 
@@ -452,62 +442,6 @@
     display: none;
   }
 
-  .burger-menu {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 100%;
-    border: 1px solid #403f3d;
-    margin-top: 8px;
-    position: relative;
-  }
-
-  .burger-icon {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 5;
-    position: relative;
-    width: 16px;
-    height: 10px;
-    cursor: pointer;
-    transition: 0.8s;
-  }
-
-  .one-line,
-  .two-line {
-    display: block;
-    position: absolute;
-    width: 16px;
-    height: 1px;
-    transition: all 0.8s ease 0s;
-    background-color: #403f3d;
-  }
-
-  .one-line {
-    top: 0;
-  }
-
-  .two-line {
-    top: 10px;
-  }
-
-  .one-line.active {
-    display: block;
-    transform: rotate(-45deg);
-    transition: 0.5s;
-    top: 4px;
-  }
-
-  .two-line.active {
-    display: block;
-    transform: rotate(45deg);
-    transition: 0.5s;
-    top: 4px;
-  }
-
   /*-------------main---------*/
 
   .main {
@@ -517,10 +451,6 @@
   .title {
     text-align: center;
     width: auto;
-  }
-
-  .drink-type {
-    margin-top: 39px;
   }
 
   #five-card,
@@ -536,6 +466,15 @@
     width: 60px;
     height: 60px;
     margin-top: 43px;
+    cursor: pointer;
+    transition: transform 0.5s;
+  }
+
+  @media (hover: hover) {
+    .load-img:hover {
+      transform: scale(1.05);
+      transition: transform 0.5s;
+    }
   }
 
   .modal {
@@ -554,54 +493,7 @@
 }
 
 @media screen and (max-width: 380px) {
-  .title h1 {
-    font-size: 32px;
-  }
-
-  h2 {
-    font-size: 32px;
-  }
-
-  .body-wrapper {
-    margin: 20px 16px;
-  }
-
-  /*---------main----------*/
-
-  .drink-type {
-    gap: 5px;
-  }
-
   .menu-cards-wrapper {
     gap: 40px;
-  }
-
-  /*----------footer----------*/
-
-  .footer {
-    margin-top: 96px;
-  }
-
-  .footer-one-column {
-    margin-left: 16px;
-    padding-top: 61px;
-  }
-
-  .footer-two-column {
-    margin-left: 16px;
-    padding-bottom: 66px;
-    margin-top: 0px;
-  }
-
-  .social {
-    padding-bottom: 38px;
-  }
-
-  .modal {
-    margin: 0 17px;
-  }
-
-  .more-detail-position {
-    margin-right: 0px;
   }
 }
