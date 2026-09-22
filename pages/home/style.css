@@ -219,13 +219,7 @@
 
 .line-img.active-line {
   width: 100%;
-  background-color: var(--c-slider-border);
-  animation: move 5s linear forwards;
-}
-
-.line-img.active-line {
-  width: 100%;
-  background-color: var(--c-slider-border);
+  background-color: var(--c-slider-hover-bg);
   animation: move 5s linear forwards;
 }
 
@@ -609,7 +603,6 @@
 
 @media screen and (max-width: 720px) {
   .enjoy {
-    height: 552px;
     padding: 17.35% 0 15.35% 4.35%;
   }
 
