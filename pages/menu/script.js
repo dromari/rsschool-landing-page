@@ -1,198 +1,371 @@
-import data from './products.json' with {type: 'json'};
-const menu = document.querySelector('.menu-cards-wrapper');
-const buttonType = document.querySelectorAll('.drink-type-button');
-const modalWrapper = document.querySelector('.modal-wrapper');
-const modal = document.querySelector('.modal');
-const closeModal = document.querySelector('.close');
-const loadImg = document.querySelector('.load-img');
-const buttonSize = document.querySelectorAll('.button-choise-size');
+import data from "./products.json" with { type: "json" };
 
-const buttonAdditives = modal.querySelectorAll('.button-additives');
+const menu = document.querySelector(".menu-cards-wrapper");
+const buttonType = document.querySelectorAll(".drink-type-button");
+const loadImg = document.querySelector(".load-img");
+
 let windowWidth = window.innerWidth;
-let currentProduct = 'coffee';
+let currentProduct = "coffee";
 
+function createMenu(type = "coffee") {
+  menu.innerHTML = "";
+  let availableCards = data.filter((e) => e.category == type);
 
-function createMenu(type = 'coffee') {
-    let countCard = 0;
-    menu.innerHTML = '';
-    if (windowWidth <= 768) {
-        let availableCards = data.filter(e => e.category == type);
-        for (let i = countCard; i < 4; i++) {
-            let b = createCard(availableCards[i]);
-            menu.appendChild(b);
-            countCard = i;
-        }
-        if (availableCards.length > countCard + 1) {
-            loadImg.style.display = 'block';
-        }
-        else {
-            loadImg.style.display = 'none';
-        }
+  if (windowWidth <= 768) {
+    let cardsToShow = Math.min(4, availableCards.length);
+    for (let i = 0; i < cardsToShow; i++) {
+      let b = createCard(availableCards[i]);
+      menu.appendChild(b);
     }
-    else {
-        let availableCards = data.filter(e => e.category == type);
-        for (let i = 0; i < availableCards.length; i++) {
-            let b = createCard(availableCards[i]);
-            menu.appendChild(b);
-        }
+
+    if (loadImg) {
+      loadImg.style.display =
+        availableCards.length > cardsToShow ? "block" : "none";
     }
+  } else {
+    availableCards.forEach((item) => {
+      let b = createCard(item);
+      menu.appendChild(b);
+    });
+    if (loadImg) loadImg.style.display = "none";
+  }
 }
 
 function createCard(jsonCard) {
-    const menuCard = document.createElement('div');
-    menuCard.classList.add('menu-card');
+  const menuCard = document.createElement("div");
+  menuCard.classList.add("menu-card");
 
-    const menuCardImgContainer = document.createElement('div');
-    menuCardImgContainer.classList.add('menu-card-img-container');
-    const imgMenuCardImgContainer = document.createElement('img');
-    imgMenuCardImgContainer.src = jsonCard.url;
-    imgMenuCardImgContainer.setAttribute('alt', jsonCard.category);
-    menuCardImgContainer.appendChild(imgMenuCardImgContainer);
+  menuCard.dataset.cardData = JSON.stringify(jsonCard);
 
-    const discriptionPosition = document.createElement('div');
-    discriptionPosition.classList.add('discription-position');
-    const namePosition = document.createElement('div');
-    namePosition.classList.add('name-position');
-    namePosition.innerHTML = jsonCard.name;
-    const moreDetailPosition = document.createElement('div');
-    moreDetailPosition.classList.add('more-detail-position');
-    moreDetailPosition.innerHTML = jsonCard.description;
-    const costPosition = document.createElement('div');
-    costPosition.classList.add('cost-position');
-    costPosition.innerHTML = '$' + jsonCard.price;
+  const menuCardImgContainer = document.createElement("div");
+  menuCardImgContainer.classList.add("menu-card-img-container");
 
-    menuCard.appendChild(menuCardImgContainer);
-    menuCard.appendChild(discriptionPosition);
-    discriptionPosition.appendChild(namePosition);
-    discriptionPosition.appendChild(moreDetailPosition);
-    discriptionPosition.appendChild(costPosition);
+  const imgMenuCardImgContainer = document.createElement("img");
+  imgMenuCardImgContainer.src = jsonCard.url;
+  imgMenuCardImgContainer.setAttribute("alt", jsonCard.category);
+  menuCardImgContainer.appendChild(imgMenuCardImgContainer);
 
-    // menuCard.addEventListener('click', showModal);
-    return menuCard;
+  const discriptionPosition = document.createElement("div");
+  discriptionPosition.classList.add("discription-position");
+
+  const namePosition = document.createElement("div");
+  namePosition.classList.add("name-position");
+  namePosition.innerHTML = jsonCard.name;
+
+  const moreDetailPosition = document.createElement("div");
+  moreDetailPosition.classList.add("more-detail-position");
+  moreDetailPosition.innerHTML = jsonCard.description;
+
+  const costPosition = document.createElement("div");
+  costPosition.classList.add("cost-position");
+  costPosition.innerHTML = "\$" + jsonCard.price;
+
+  menuCard.appendChild(menuCardImgContainer);
+  menuCard.appendChild(discriptionPosition);
+  discriptionPosition.appendChild(namePosition);
+  discriptionPosition.appendChild(moreDetailPosition);
+  discriptionPosition.appendChild(costPosition);
+
+  menuCard.addEventListener("click", showModal);
+  return menuCard;
 }
 
+function createModalCard(jsonCard) {
+  const modalWrapper = document.createElement("div");
+  modalWrapper.classList.add("modal-wrapper");
+
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+
+  const modalImg = document.createElement("div");
+  modalImg.classList.add("modal-img");
+
+  const imgContainer = document.createElement("div");
+  imgContainer.classList.add("menu-card-img-container");
+
+  const img = document.createElement("img");
+  img.src = jsonCard.url || "../../assets/images/imgMenu/coffee-1.jpg";
+  img.classList.add("menu-card-img");
+  img.setAttribute("alt", jsonCard.category || "coffee");
+
+  imgContainer.appendChild(img);
+  modalImg.appendChild(imgContainer);
+
+  const infoContainer = document.createElement("div");
+  infoContainer.classList.add("information-container");
+
+  const namePosition = document.createElement("div");
+  namePosition.classList.add("name-position");
+  namePosition.textContent = jsonCard.name;
+
+  const moreDetailPosition = document.createElement("div");
+  moreDetailPosition.classList.add("more-detail-position");
+  moreDetailPosition.textContent = jsonCard.description;
+
+  const sizePosition = document.createElement("div");
+  sizePosition.classList.add("size-position");
+
+  const sizeTitle = document.createElement("p");
+  sizeTitle.textContent = "Size";
+
+  const choiseSize = document.createElement("div");
+  choiseSize.classList.add("choise-size");
+
+  const sizesData = [
+    {
+      key: "s",
+      name: "S",
+      volume: jsonCard.sizes?.s?.size || "200 ml",
+      price: jsonCard.sizes?.s?.["add-price"] || "0",
+    },
+    {
+      key: "m",
+      name: "M",
+      volume: jsonCard.sizes?.m?.size || "300 ml",
+      price: jsonCard.sizes?.m?.["add-price"] || "0.5",
+    },
+    {
+      key: "l",
+      name: "L",
+      volume: jsonCard.sizes?.l?.size || "400 ml",
+      price: jsonCard.sizes?.l?.["add-price"] || "1",
+    },
+  ];
+
+  sizesData.forEach((sizeInfo, index) => {
+    const singleSizeBtn = document.createElement("div");
+    singleSizeBtn.className = `size-button button-choise-size ${index === 0 ? "checked" : ""}`;
+    singleSizeBtn.setAttribute("data-price", sizeInfo.price);
+
+    const circle = document.createElement("div");
+    circle.classList.add("circle-btn");
+    const circleText = document.createElement("p");
+    circleText.textContent = sizeInfo.name;
+    circle.appendChild(circleText);
+
+    const textVolume = document.createElement("p");
+    textVolume.className = `size-ml ${sizeInfo.key}`;
+    textVolume.textContent = sizeInfo.volume;
+
+    singleSizeBtn.append(circle, textVolume);
+    choiseSize.appendChild(singleSizeBtn);
+  });
+  sizePosition.append(sizeTitle, choiseSize);
+
+  const additivesPosition = document.createElement("div");
+  additivesPosition.classList.add("additives-position");
+
+  const additivesTitle = document.createElement("p");
+  additivesTitle.textContent = "Additives";
+
+  const choiseAdditives = document.createElement("div");
+  choiseAdditives.classList.add("choise-size");
+
+  const additivesData = jsonCard.additives || [
+    { name: "Sugar", index: "1", class: "additives-one" },
+    { name: "Cinnamon", index: "2", class: "additives-two" },
+    { name: "Syrup", index: "3", class: "additives-three" },
+  ];
+
+  additivesData.forEach((add, idx) => {
+    const addBtn = document.createElement("div");
+    addBtn.classList.add("size-button", "button-additives");
+    addBtn.setAttribute("data-price", add["add-price"] || "0.5");
+
+    const circle = document.createElement("div");
+    circle.classList.add("circle-btn");
+    const circleText = document.createElement("p");
+    circleText.textContent = add.index || (idx + 1).toString();
+    circle.appendChild(circleText);
+
+    const textAdd = document.createElement("p");
+    textAdd.className = `size-ml ${add.class || ""}`;
+    textAdd.textContent = add.name;
+
+    addBtn.append(circle, textAdd);
+    choiseAdditives.appendChild(addBtn);
+  });
+  additivesPosition.append(additivesTitle, choiseAdditives);
+
+  const total = document.createElement("div");
+  total.classList.add("total");
+
+  const totalTitle = document.createElement("p");
+  totalTitle.textContent = "Total:";
+
+  const costPosition = document.createElement("div");
+  costPosition.classList.add("cost-position");
+
+  const startCost = Number(jsonCard.price || 0);
+  costPosition.textContent = `$${startCost.toFixed(2)}`;
+
+  total.append(totalTitle, costPosition);
+
+  const lineOpacity = document.createElement("div");
+  lineOpacity.classList.add("line-opacity");
+
+  const infoLittleFont = document.createElement("div");
+  infoLittleFont.classList.add("info-little-font");
+
+  const infoImg = document.createElement("img");
+  infoImg.src = "../../assets/icons/info-empty.svg";
+  infoImg.setAttribute("alt", "info");
+  infoImg.classList.add("info-empty");
+
+  const infoText = document.createElement("p");
+  infoText.textContent =
+    "The total price depends on the selected size and additives. After adding the item, you can review it in My order.";
+
+  infoLittleFont.append(infoImg, infoText);
+
+  const closeBtn = document.createElement("div");
+  closeBtn.classList.add("close");
+  closeBtn.textContent = "Close";
+
+  infoContainer.append(
+    namePosition,
+    moreDetailPosition,
+    sizePosition,
+    additivesPosition,
+    total,
+    lineOpacity,
+    infoLittleFont,
+    closeBtn,
+  );
+
+  modal.append(modalImg, infoContainer);
+  modalWrapper.appendChild(modal);
+  document.body.append(modalWrapper);
+
+  const buttonSize = modalWrapper.querySelectorAll(".button-choise-size");
+  const buttonAdditives = modalWrapper.querySelectorAll(".button-additives");
+
+  function totalSizes() {
+    let sum = 0;
+    buttonSize.forEach((button) => {
+      if (button.classList.contains("checked")) {
+        sum += Number.parseFloat(button.dataset.price || "0");
+      }
+    });
+    return sum;
+  }
+
+  function totalAdditives() {
+    let sum = 0;
+    buttonAdditives.forEach((button) => {
+      if (button.classList.contains("checked")) {
+        sum += Number.parseFloat(button.dataset.price || "0");
+      }
+    });
+    return sum;
+  }
+
+  function newCost() {
+    let totalSum = totalAdditives() + totalSizes() + startCost;
+    costPosition.textContent = `$` + totalSum.toFixed(2);
+  }
+
+  buttonSize.forEach((button) => {
+    button.addEventListener("click", function () {
+      buttonSize.forEach((btn) => btn.classList.remove("checked"));
+      this.classList.add("checked");
+      newCost();
+    });
+  });
+
+  buttonAdditives.forEach((button) => {
+    button.addEventListener("click", function () {
+      this.classList.toggle("checked");
+      newCost();
+    });
+  });
+
+  function closeModal() {
+    modalWrapper.remove();
+    document.body.style.paddingRight = "0px";
+    document.body.style.overflowY = "auto";
+    document.removeEventListener("keydown", handleEscape);
+  }
+
+  function handleEscape(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  }
+
+  document.addEventListener("keydown", handleEscape);
+  closeBtn.addEventListener("click", closeModal);
+  modalWrapper.addEventListener("click", (event) => {
+    if (event.target === modalWrapper) {
+      closeModal();
+    }
+  });
+
+  return modalWrapper;
+}
 
 function showModal() {
-    const namePosition = this.querySelector('.name-position').innerHTML;
-    const dataJson = data.filter(e => e.name == namePosition);
-    modal.querySelector('.menu-card-img').src = dataJson[0].url;
-    modal.querySelector('.name-position').innerHTML = dataJson[0].name;
-    modal.querySelector('.more-detail-position').innerHTML = dataJson[0].description;
-    modal.querySelector('.s').innerHTML = dataJson[0].sizes.s.size;
-    modal.querySelector('.m').innerHTML = dataJson[0].sizes.m.size;
-    modal.querySelector('.l').innerHTML = dataJson[0].sizes.l.size;
-    modal.querySelector('.additives-one').innerHTML = dataJson[0].additives[0].name;
-    modal.querySelector('.additives-two').innerHTML = dataJson[0].additives[1].name;
-    modal.querySelector('.additives-three').innerHTML = dataJson[0].additives[2].name;
-    modal.querySelector('.cost-position').innerHTML = `$` + dataJson[0].price;
-    startCost = Number.parseFloat(dataJson[0].price);
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
-        modalWrapper.style.display = 'none';
-        document.body.style.overflowY = 'auto';
-        buttonSize.forEach(button => {
-            button.classList.remove('checked');
-        });
-        buttonAdditives.forEach(button => {
-            button.classList.remove('checked');
-        });
-    })
-    modalWrapper.addEventListener('click', (e) => {
-        if (e.target == modalWrapper) {
-            modal.style.display = 'none';
-            modalWrapper.style.display = 'none';
-            document.body.style.overflowY = 'auto';
-            buttonSize.forEach(button => {
-                button.classList.remove('checked');
-            });
-            buttonAdditives.forEach(button => {
-                button.classList.remove('checked');
-            });
-        }
-    })
-    buttonSize[0].classList.add('checked');
-    modalWrapper.style.display = 'flex';
-    modal.style.display = 'flex';
-    document.body.style.overflowY = 'hidden';
-}
-createMenu();
+  menu.addEventListener("click", (e) => {
+    const card = e.target.closest(".menu-card");
+    if (!card) return;
 
-buttonType.forEach(button => {
-    button.addEventListener('click', function () {
-        buttonType.forEach(button => {
-            button.classList.remove('checked');
-        })
-        this.classList.add('checked');
-        currentProduct = this.dataset.type;
-        createMenu(this.dataset.type);
-    })
-})
+    const existingModal = document.querySelector(".modal-wrapper");
+    if (existingModal) {
+      existingModal.remove();
+    }
 
-window.addEventListener('resize', checkWidth);
-
-function checkWidth() {
-    windowWidth = window.innerWidth;
-    createMenu(currentProduct);
+    try {
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      const cardData = JSON.parse(card.dataset.cardData);
+      const modalWrapper = createModalCard(cardData);
+      modalWrapper.style.display = "flex";
+      document.body.style.overflowY = "hidden";
+    } catch (error) {
+      console.error(error);
+    }
+  });
 }
 
-loadImg.addEventListener('click', () => {
+if (loadImg) {
+  loadImg.addEventListener("click", () => {
     updateMenu(currentProduct);
-})
+  });
+}
+
+buttonType.forEach((button) => {
+  button.addEventListener("click", function () {
+    buttonType.forEach((btn) => btn.classList.remove("checked"));
+    this.classList.add("checked");
+    currentProduct = this.dataset.type;
+    createMenu(this.dataset.type);
+  });
+});
+
+if (loadImg) {
+  loadImg.addEventListener("click", () => {
+    updateMenu(currentProduct);
+  });
+}
 
 function updateMenu(type) {
-    menu.innerHTML = '';
-    let availableCards = data.filter(e => e.category == type);
-    for (let i = 0; i < availableCards.length; i++) {
-        let b = createCard(availableCards[i]);
-        menu.appendChild(b);
-    }
-    loadImg.style.display = 'none';
+  menu.innerHTML = "";
+  let availableCards = data.filter((e) => e.category == type);
+  availableCards.forEach((item) => {
+    let b = createCard(item);
+    menu.appendChild(b);
+  });
+  if (loadImg) loadImg.style.display = "none";
 }
 
-buttonSize.forEach(button => {
-    button.addEventListener('click', function () {
-        buttonSize.forEach(button => {
-            button.classList.remove('checked');
-        })
-        this.classList.add('checked');
-        newCost();
-    })
-})
+window.addEventListener("resize", checkWidth);
 
-buttonAdditives.forEach(button => {
-    button.addEventListener('click', () => {
-        button.classList.toggle('checked');
-        newCost();
-    })
-})
-
-/*---------*/
-let startCost = 0;
-
-function totalSizes() {
-    let sum = 0;
-    buttonSize.forEach(button => {
-        if (button.classList.contains('checked')) {
-            sum = sum + Number.parseFloat(button.dataset.price);
-        }
-    })
-    return sum;
+function checkWidth() {
+  if (window.innerWidth !== windowWidth) {
+    windowWidth = window.innerWidth;
+    createMenu(currentProduct);
+  }
 }
 
-function totalAdditives() {
-    let sum = 0;
-    buttonAdditives.forEach(button => {
-        if (button.classList.contains('checked')) {
-            sum = sum + Number.parseFloat(button.dataset.price);
-        }
-    })
-    return sum;
-}
-
-function newCost() {
-    let totalSum = totalAdditives() + totalSizes() + startCost;
-    modal.querySelector('.cost-position').innerHTML = `$` + totalSum.toFixed(2);
-}
-
-
-
+createMenu(currentProduct);
