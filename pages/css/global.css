@@ -60,9 +60,11 @@
 
   --color-icon-social-hover: #403f3d;
 
+  --color-modal-bg: rgba(41, 41, 41, 0.6);
+
   --font-semibold: "Inter600", sans-serif;
   --font-regular: "Inter400", sans-serif;
-  --transition-standard: 0.5s ease-in-out;
+  --transition-standard: 0.3s ease-in-out;
   --transition-fast: 0.3s ease;
 }
 
@@ -102,6 +104,8 @@
   --c-social-hover-bg: #292826;
 
   --color-icon-social-hover: #e1d4c9;
+
+  --color-modal-bg: rgba(225, 212, 201, 0.6);
 }
 
 :root:has(#theme-toggle:checked) .logo-menu img,
@@ -688,6 +692,12 @@ html.dark-theme .logo img {
     gap: 63px;
   }
 
+  .header-navigation a::after,
+  .header-controls a::after {
+    top: 40px;
+    height: 1px;
+  }
+
   .theme-switch {
     z-index: 50;
   }
@@ -710,8 +720,6 @@ html.dark-theme .logo img {
 
   .logo-menu.active {
     display: flex;
-    position: absolute;
-    top: 17em;
   }
 
   .burger-menu {
@@ -725,6 +733,15 @@ html.dark-theme .logo img {
     margin-top: 8px;
     position: relative;
     z-index: 50;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  @media (hover: hover) {
+    .burger-menu:hover {
+      transform: scale(1.2);
+      transition: transform 0.3s;
+    }
   }
 
   .burger-icon {
@@ -735,8 +752,7 @@ html.dark-theme .logo img {
     position: relative;
     width: 16px;
     height: 10px;
-    cursor: pointer;
-    transition: transform 0.8s ease;
+    transition: transform 0.3s ease;
   }
 
   .one-line,
@@ -744,7 +760,7 @@ html.dark-theme .logo img {
     position: absolute;
     width: 16px;
     height: 1px;
-    transition: all 0.8s ease 0s;
+    transition: all 0.3s ease 0s;
     background-color: var(--color-text-primary);
   }
 

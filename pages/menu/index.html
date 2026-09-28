@@ -19,9 +19,9 @@
       </a>
       <nav class="header-navigation-wrapper">
         <ul class="header-navigation">
-          <li><a href="#favoriteCoffee" class="header-nav-list-li">Favorite coffee</a></li>
-          <li><a href="#about" class="header-nav-list-li">About</a></li>
-          <li><a href="#mobileApp" class="header-nav-list-li">Mobile app</a></li>
+          <li><a href="../home/index.html#favoriteCoffee" class="header-nav-list-li">Favorite coffee</a></li>
+          <li><a href="../home/index.html#about" class="header-nav-list-li">About</a></li>
+          <li><a href="../home/index.html#mobileApp" class="header-nav-list-li">Mobile app</a></li>
           <li><a href="#contactUs" class="header-nav-list-li">Contact us</a></li>
         </ul>
       </nav>
@@ -38,10 +38,10 @@
             </span>
           </span>
         </label>
-        <a href="../menu/index.html" class="logo-menu">
+        <div href="../menu/index.html" class="logo-menu logo-menu-menu-page">
           <h4>Menu</h4>
           <img src="../../assets/icons/coffee-cup.svg" alt="coffee cup" />
-        </a>
+        </div>
       </div>
       <div class="burger-menu" role="button" aria-label="Toggle menu">
         <div class="burger-icon">
@@ -78,6 +78,7 @@
       </div>
 
       <div class="menu-cards-wrapper"></div>
+
       <div class="load-img"></div>
     </main>
 
@@ -128,80 +129,7 @@
       </div>
     </footer>
 
-    <div class="modal-wrapper">
-      <div class="modal">
-        <div class="modal-img">
-          <div class="menu-card-img-container">
-            <img src="../../assets/images/imgMenu/coffee-1.jpg" class="menu-card-img" alt="Irish coffee">
-          </div>
-        </div>
-        <div class="information-container">
-          <div class="name-position">Irish coffee</div>
-          <div class="more-detail-position">Fragrant black coffee with Jameson Irish whiskey and whipped milk</div>
-
-          <div class="size-position">
-            <p>Size</p>
-            <div class="choise-size">
-              <div class="size-button button-choise-size checked" data-price="0" role="button">
-                <div class="circle-btn">
-                  <p>S</p>
-                </div>
-                <p class="size-ml s">200 ml</p>
-              </div>
-              <div class="size-button button-choise-size" data-price="0.5" role="button">
-                <div class="circle-btn">
-                  <p>M</p>
-                </div>
-                <p class="size-ml m">300 ml</p>
-              </div>
-              <div class="size-button button-choise-size" data-price="1" role="button">
-                <div class="circle-btn">
-                  <p>L</p>
-                </div>
-                <p class="size-ml l">400 ml</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="additives-position">
-            <p>Additives</p>
-            <div class="choise-size">
-              <div class="size-button button-additives" data-price="0.5" role="button">
-                <div class="circle-btn">
-                  <p>1</p>
-                </div>
-                <p class="size-ml additives-one">Sugar</p>
-              </div>
-              <div class="size-button button-additives" data-price="0.5" role="button">
-                <div class="circle-btn">
-                  <p>2</p>
-                </div>
-                <p class="size-ml additives-two">Cinnamon</p>
-              </div>
-              <div class="size-button button-additives" data-price="0.5" role="button">
-                <div class="circle-btn">
-                  <p>3</p>
-                </div>
-                <p class="size-ml additives-three">Syrup</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="total">
-            <p>Total:</p>
-            <div class="cost-position">$7.00</div>
-          </div>
-          <div class="line-opacity"></div>
-          <div class="info-little-font">
-            <img src="../../assets/icons/info-empty.svg" alt="info icon">
-            <p>The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty
-              points and enjoy your favorite coffee with up to 20% discount.</p>
-          </div>
-          <div class="close" role="button">Close</div>
-        </div>
-      </div>
-    </div>
-
+    <script src="../js/burger.js"></script>
     <script src="../js/themeSwitcher.js"></script>
     <script src="../menu/script.js" type="module"></script>
   </div>
