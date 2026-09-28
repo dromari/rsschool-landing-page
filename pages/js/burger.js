@@ -1,30 +1,44 @@
 /*---------burger----------*/
-const burger = document.querySelector('.burger-menu');
-const headerNavigationWrapper = document.querySelector('.header-navigation-wrapper');
-const headerNavigation = document.querySelector('.header-navigation');
-const oneLine = document.querySelector('.one-line');
-const twoLine = document.querySelector('.two-line');
-const headerNavListLi = document.querySelectorAll('.header-nav-list-li');
-const logoMenu = document.querySelector('.logo-menu');
+const burger = document.querySelector(".burger-menu");
+const headerNavigationWrapper = document.querySelector(
+  ".header-navigation-wrapper",
+);
+const headerNavigation = document.querySelector(".header-navigation");
+const oneLine = document.querySelector(".one-line");
+const twoLine = document.querySelector(".two-line");
+const headerNavListLi = document.querySelectorAll(".header-nav-list-li");
+const logoMenu = document.querySelector(".logo-menu");
 const toggleMenu = () => {
-    document.body.classList.toggle('lock');
-    headerNavigation.classList.toggle('active');
-    oneLine.classList.toggle('active');
-    twoLine.classList.toggle('active');
-    headerNavigationWrapper.classList.toggle('active');
-    logoMenu.classList.toggle('active');
+  document.body.classList.toggle("lock");
+  headerNavigation.classList.toggle("active");
+  oneLine.classList.toggle("active");
+  twoLine.classList.toggle("active");
+  headerNavigationWrapper.classList.toggle("active");
+  logoMenu.classList.toggle("active");
 };
 
-burger.addEventListener('click', e => {
-    toggleMenu();
+burger.addEventListener("click", (e) => {
+  toggleMenu();
+  handleMenuTransfer();
 });
 
-headerNavListLi.forEach(element => {
-    element.addEventListener('click', (e) => {
-        toggleMenu();
-        e.preventDefault();
-        setTimeout(()=>{
-            window.location = element.getAttribute('href');
-        }, 1000);
-    })
-})
+headerNavListLi.forEach((element) => {
+  element.addEventListener("click", (e) => {
+    toggleMenu();
+    e.preventDefault();
+    setTimeout(() => {
+      window.location = element.getAttribute("href");
+    }, 1000);
+  });
+});
+
+function handleMenuTransfer() {
+  if (headerNavigation.classList.contains("active")) {
+    headerNavigation.appendChild(logoMenu);
+  } else {
+    const controls = document.querySelector(".header-controls");
+    if (controls) {
+      controls.appendChild(logoMenu);
+    }
+  }
+}

@@ -2,15 +2,12 @@ import data from "./products.json" with { type: "json" };
 
 const menu = document.querySelector(".menu-cards-wrapper");
 const buttonType = document.querySelectorAll(".drink-type-button");
-const modalWrapper = document.querySelector(".modal-wrapper");
 const loadImg = document.querySelector(".load-img");
 
 let windowWidth = window.innerWidth;
 let currentProduct = "coffee";
-let startCost = 0;
 
 function createMenu(type = "coffee") {
-  let countCard = 0;
   menu.innerHTML = "";
   let availableCards = data.filter((e) => e.category == type);
 
@@ -19,12 +16,11 @@ function createMenu(type = "coffee") {
     for (let i = 0; i < cardsToShow; i++) {
       let b = createCard(availableCards[i]);
       menu.appendChild(b);
-      countCard = i;
     }
-    if (availableCards.length > countCard + 1) {
-      if (loadImg) loadImg.style.display = "block";
-    } else {
-      if (loadImg) loadImg.style.display = "none";
+
+    if (loadImg) {
+      loadImg.style.display =
+        availableCards.length > cardsToShow ? "block" : "none";
     }
   } else {
     availableCards.forEach((item) => {
@@ -137,9 +133,9 @@ function createModalCard(jsonCard) {
   ];
 
   sizesData.forEach((sizeInfo, index) => {
-    const buttonSize = document.createElement("div");
-    buttonSize.className = `size-button button-choise-size ${index === 0 ? "checked" : ""}`;
-    buttonSize.setAttribute("data-price", sizeInfo.price);
+    const singleSizeBtn = document.createElement("div");
+    singleSizeBtn.className = `size-button button-choise-size ${index === 0 ? "checked" : ""}`;
+    singleSizeBtn.setAttribute("data-price", sizeInfo.price);
 
     const circle = document.createElement("div");
     circle.classList.add("circle-btn");
@@ -151,8 +147,8 @@ function createModalCard(jsonCard) {
     textVolume.className = `size-ml ${sizeInfo.key}`;
     textVolume.textContent = sizeInfo.volume;
 
-    buttonSize.append(circle, textVolume);
-    choiseSize.appendChild(buttonSize);
+    singleSizeBtn.append(circle, textVolume);
+    choiseSize.appendChild(singleSizeBtn);
   });
   sizePosition.append(sizeTitle, choiseSize);
 
@@ -199,7 +195,9 @@ function createModalCard(jsonCard) {
 
   const costPosition = document.createElement("div");
   costPosition.classList.add("cost-position");
-  costPosition.textContent = `$${Number(jsonCard.price).toFixed(2)}`;
+
+  const startCost = Number(jsonCard.price || 0);
+  costPosition.textContent = `$${startCost.toFixed(2)}`;
 
   total.append(totalTitle, costPosition);
 
@@ -212,6 +210,7 @@ function createModalCard(jsonCard) {
   const infoImg = document.createElement("img");
   infoImg.src = "../../assets/icons/info-empty.svg";
   infoImg.setAttribute("alt", "info");
+  infoImg.classList.add("info-empty");
 
   const infoText = document.createElement("p");
   infoText.textContent =
@@ -238,16 +237,52 @@ function createModalCard(jsonCard) {
   modalWrapper.appendChild(modal);
   document.body.append(modalWrapper);
 
-  document.addEventListener("keydown", handleEscape);
-  closeBtn.addEventListener("click", closeModal);
-  modalWrapper.addEventListener("click", (event) => {
-    if (event.target === modalWrapper) {
-      closeModal();
-    }
+  const buttonSize = modalWrapper.querySelectorAll(".button-choise-size");
+  const buttonAdditives = modalWrapper.querySelectorAll(".button-additives");
+
+  function totalSizes() {
+    let sum = 0;
+    buttonSize.forEach((button) => {
+      if (button.classList.contains("checked")) {
+        sum += Number.parseFloat(button.dataset.price || "0");
+      }
+    });
+    return sum;
+  }
+
+  function totalAdditives() {
+    let sum = 0;
+    buttonAdditives.forEach((button) => {
+      if (button.classList.contains("checked")) {
+        sum += Number.parseFloat(button.dataset.price || "0");
+      }
+    });
+    return sum;
+  }
+
+  function newCost() {
+    let totalSum = totalAdditives() + totalSizes() + startCost;
+    costPosition.textContent = `$` + totalSum.toFixed(2);
+  }
+
+  buttonSize.forEach((button) => {
+    button.addEventListener("click", function () {
+      buttonSize.forEach((btn) => btn.classList.remove("checked"));
+      this.classList.add("checked");
+      newCost();
+    });
+  });
+
+  buttonAdditives.forEach((button) => {
+    button.addEventListener("click", function () {
+      this.classList.toggle("checked");
+      newCost();
+    });
   });
 
   function closeModal() {
     modalWrapper.remove();
+    document.body.style.paddingRight = "0px";
     document.body.style.overflowY = "auto";
     document.removeEventListener("keydown", handleEscape);
   }
@@ -257,6 +292,14 @@ function createModalCard(jsonCard) {
       closeModal();
     }
   }
+
+  document.addEventListener("keydown", handleEscape);
+  closeBtn.addEventListener("click", closeModal);
+  modalWrapper.addEventListener("click", (event) => {
+    if (event.target === modalWrapper) {
+      closeModal();
+    }
+  });
 
   return modalWrapper;
 }
@@ -272,59 +315,25 @@ function showModal() {
     }
 
     try {
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      console.log((document.body.style.paddingRight = `${scrollbarWidth}px`));
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
       const cardData = JSON.parse(card.dataset.cardData);
       const modalWrapper = createModalCard(cardData);
       modalWrapper.style.display = "flex";
       document.body.style.overflowY = "hidden";
     } catch (error) {
-      console.error(
-        console.error("Ошибка при открытии модального окна:", error),
-        error,
-      );
+      console.error(error);
     }
   });
 }
 
-function totalSizes() {
-  let sum = 0;
-  buttonSize.forEach((button) => {
-    if (button.classList.contains("checked")) {
-      sum = sum + Number.parseFloat(button.dataset.price);
-    }
+if (loadImg) {
+  loadImg.addEventListener("click", () => {
+    updateMenu(currentProduct);
   });
-  return sum;
 }
-
-function totalAdditives() {
-  let sum = 0;
-  buttonAdditives.forEach((button) => {
-    if (button.classList.contains("checked")) {
-      sum = sum + Number.parseFloat(button.dataset.price);
-    }
-  });
-  return sum;
-}
-
-function newCost() {
-  let totalSum = totalAdditives() + totalSizes() + startCost;
-  const modalCost = modalWrapper.querySelector(".modal .cost-position");
-  if (modalCost) modalCost.innerHTML = `$` + totalSum.toFixed(2);
-}
-
-// buttonSize.forEach((button) => {
-//   button.addEventListener("click", function () {
-//     buttonSize.forEach((btn) => btn.classList.remove("checked"));
-//     this.classList.add("checked");
-//     newCost();
-//   });
-// });
-
-// buttonAdditives.forEach((button) => {
-//   button.addEventListener("click", function () {
-//     this.classList.toggle("checked");
-//     newCost();
-//   });
-// });
 
 buttonType.forEach((button) => {
   button.addEventListener("click", function () {

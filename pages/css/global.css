@@ -60,6 +60,8 @@
 
   --color-icon-social-hover: #403f3d;
 
+  --color-modal-bg: rgba(41, 41, 41, 0.6);
+
   --font-semibold: "Inter600", sans-serif;
   --font-regular: "Inter400", sans-serif;
   --transition-standard: 0.5s ease-in-out;
@@ -102,6 +104,8 @@
   --c-social-hover-bg: #292826;
 
   --color-icon-social-hover: #e1d4c9;
+
+  --color-modal-bg: rgba(225, 212, 201, 0.6);
 }
 
 :root:has(#theme-toggle:checked) .logo-menu img,
@@ -710,8 +714,6 @@ html.dark-theme .logo img {
 
   .logo-menu.active {
     display: flex;
-    position: absolute;
-    top: 17em;
   }
 
   .burger-menu {
