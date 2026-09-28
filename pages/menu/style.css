@@ -1,13 +1,12 @@
 /*------------header-----------*/
 
-.logo-menu {
-  cursor: none;
+.logo-menu-menu-page {
+  border-bottom: 1px solid var(--color-text-primary);
+  cursor: default;
 }
 
-.header-controls a::after {
-  left: 0;
-  top: 45px;
-  width: 100%;
+.logo-menu-menu-page h4 {
+  margin: 0;
 }
 
 @media (hover: hover) {
@@ -406,6 +405,10 @@
 
   .body-wrapper {
     position: relative;
+  }
+
+  .header-controls a::after {
+    width: 100%;
   }
 
   /*-------------main---------*/
