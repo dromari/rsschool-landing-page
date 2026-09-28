@@ -317,7 +317,6 @@ function showModal() {
     try {
       const scrollbarWidth =
         window.innerWidth - document.documentElement.clientWidth;
-      console.log((document.body.style.paddingRight = `${scrollbarWidth}px`));
       document.body.style.paddingRight = `${scrollbarWidth}px`;
       const cardData = JSON.parse(card.dataset.cardData);
       const modalWrapper = createModalCard(cardData);

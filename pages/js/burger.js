@@ -65,5 +65,12 @@ function handleScreenChange(e) {
   }
 }
 
+function handleEscape(event) {
+  if (event.key === "Escape") {
+    resetMenu();
+  }
+}
+
+document.addEventListener("keydown", handleEscape);
 desktopBreakpoint.addEventListener("change", handleScreenChange);
 handleScreenChange(desktopBreakpoint);
