@@ -400,48 +400,6 @@
     position: relative;
   }
 
-  /*---------header----------*/
-
-  .header-navigation-wrapper {
-    display: block;
-    position: fixed;
-    top: 80px;
-    right: -100%;
-    width: 100%;
-    background-color: #e1d4c9;
-    transition: 0.8s;
-    margin-top: 10px;
-    height: 100vh;
-    z-index: 10;
-    margin-left: 0;
-  }
-
-  .header-navigation-wrapper.active {
-    right: 0;
-  }
-
-  .header-navigation {
-    flex-direction: column;
-    margin-top: 10%;
-    align-items: center;
-    gap: 63px;
-    font-size: 32px;
-  }
-
-  .logo-menu {
-    margin-top: -4px;
-  }
-
-  .logo-menu-main {
-    justify-content: center;
-    margin-top: 16%;
-    transform: scale(2);
-  }
-
-  .logo-menu-line {
-    display: none;
-  }
-
   /*-------------main---------*/
 
   .main {
